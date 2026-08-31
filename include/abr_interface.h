@@ -59,6 +59,8 @@ int abr_interface_execute(abr_context_t *ctx, int operator_id, void *args);
 #ifdef __cplusplus
 }
 #endif
+abr_context_t *abr_context_create(abr_runtime_t *rt);
+void abr_context_destroy(abr_context_t *ctx);
 
 #endif /* ABR_INTERFACE_H */
 

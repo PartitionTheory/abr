@@ -66,6 +66,10 @@ typedef struct abr_plugin_abi {
 /* Current ABI version for ABR-Rebirth */
 #define ABR_PLUGIN_ABI_VERSION 1
 
+int abr_plugin_load(abr_runtime_t *rt, const abr_plugin_abi_t *abi);
+int abr_plugin_unload(const abr_plugin_abi_t *abi);
+
+
 #ifdef __cplusplus
 }
 #endif

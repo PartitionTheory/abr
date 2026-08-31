@@ -44,6 +44,8 @@ struct abr_context {
 #ifdef __cplusplus
 }
 #endif
+abr_runtime_t *abr_init(void);
+void abr_shutdown(abr_runtime_t *rt);
 
 #endif /* ABR_CORE_H */
 
