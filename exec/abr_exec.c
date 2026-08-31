@@ -8,6 +8,9 @@
  * execution. Later Phase 4 steps will extend this with
  * reversible semantics and synthetic math.
  */
+#include "abr_core.h"
+#include "abr_interface.h"
+#include <string.h>
 
 int abr_exec_by_name(abr_context_t *ctx, const char *name, void *args)
 {

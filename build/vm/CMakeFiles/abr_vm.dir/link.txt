@@ -1,2 +1,0 @@
-/usr/bin/ar qc libabr_vm.a CMakeFiles/abr_vm.dir/__/src/abr_vm.c.o
-/usr/bin/ranlib libabr_vm.a

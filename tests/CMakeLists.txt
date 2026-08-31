@@ -1,12 +1,10 @@
 # ---------------------------------------------------------------------------
-# ABR Test Suite
-# Builds: abr_tests
+# ABR Test Suite (Phase 4 Placeholder)
 # ---------------------------------------------------------------------------
 
-add_executable(abr_tests
-    ../src/abr_core.c   # placeholder until real tests exist
+add_library(abr_tests STATIC
+    ../src/abr_core.c
 )
 
 target_include_directories(abr_tests PUBLIC ../include)
-target_link_libraries(abr_tests PUBLIC abr_core)
 

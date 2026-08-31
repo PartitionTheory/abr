@@ -1,4 +1,4 @@
-#include "abr_plugin_loader.h"
+#include "../../include/abr_plugin_loader.h"
 #include <dlfcn.h>
 #include <stdio.h>
 
@@ -59,3 +59,11 @@ int abr_plugin_loader_unload(abr_runtime_t *rt, const char *path)
     /* Remove plugin from registry and unload. */
     return abr_plugin_registry_remove(rt, path);
 }
+int abr_plugin_load(abr_runtime_t *rt, const abr_plugin_abi_t *abi)
+{
+    /* Phase‑4 stub: real operator registration happens in registry_add */
+    (void)rt;
+    (void)abi;
+    return 0;
+}
+

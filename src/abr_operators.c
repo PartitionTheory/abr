@@ -27,23 +27,23 @@ typedef struct abr_operator_table {
 
 static abr_operator_table_t *abr_get_table(abr_runtime_t *rt)
 {
+    static abr_operator_table_t *tbl = NULL;
+
     if (!rt || !rt->initialized) {
         return NULL;
     }
 
-    if (!rt->operator_table) {
-        abr_operator_table_t *tbl =
-            (abr_operator_table_t *)malloc(sizeof(abr_operator_table_t));
+    if (!tbl) {
+        tbl = (abr_operator_table_t *)malloc(sizeof(abr_operator_table_t));
         if (!tbl) {
             return NULL;
         }
         tbl->entries  = NULL;
         tbl->count    = 0;
         tbl->capacity = 0;
-        rt->operator_table = tbl;
     }
 
-    return (abr_operator_table_t *)rt->operator_table;
+    return tbl;
 }
 
 /* ------------------------------------------------------------------------- */

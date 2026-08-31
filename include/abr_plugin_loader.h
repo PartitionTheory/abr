@@ -8,22 +8,37 @@
  * new Phase 4 functionality for dynamic operator expansion.
  */
 
-#include "abr_plugin.h"
+#ifndef ABR_PLUGIN_LOADER_H
+#define ABR_PLUGIN_LOADER_H
+
+/*
+ * ABR‑Rebirth: Plugin Loader (Phase 4)
+ * ------------------------------------
+ * Loads plugin shared libraries, retrieves their ABI, and registers
+ * operators with the ABR runtime.
+ */
+
+#include "abr_interface.h"
+#include "abr_core.h"
+#include "abr_plugin_abi.h"
 #include "abr_plugin_registry.h"
-#include "abr_runtime.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Load a plugin from a given path and register its operators. */
+/* Load a plugin from a shared library path */
 int abr_plugin_loader_load(abr_runtime_t *rt, const char *path);
 
-/* Unload a previously loaded plugin. */
+/* Unload a previously loaded plugin */
 int abr_plugin_loader_unload(abr_runtime_t *rt, const char *path);
+
+int abr_plugin_load(abr_runtime_t *rt, const abr_plugin_abi_t *abi);
+
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* ABR_PLUGIN_LOADER_H */
+

@@ -7,6 +7,7 @@
 #include "abr_stream.h"
 #include "abr_core.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -120,3 +121,20 @@ int abr_stream_bind_context(abr_context_t *ctx, abr_stream_buffer_t *buf)
     return 0;
 }
 
+int abr_stream_split(const char *path, int bitWidth)
+{
+    fprintf(stderr,
+        "abr_stream_split: stub invoked (path=%s, bitWidth=%d)\n",
+        path, bitWidth
+    );
+    return 0;
+}
+
+int abr_stream_join(const char *hexPath, int bitWidth, int originalBits)
+{
+    fprintf(stderr,
+        "abr_stream_join: stub invoked (hexPath=%s, bitWidth=%d, originalBits=%d)\n",
+        hexPath, bitWidth, originalBits
+    );
+    return 0;
+}

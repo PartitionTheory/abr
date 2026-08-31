@@ -38,7 +38,6 @@ abr_runtime_t *abr_init(void)
      * incrementally as Phase 3 progresses. For now, they are NULL. */
 
     rt->plugin_registry = NULL;
-    rt->operator_table  = NULL;
     rt->vm_state        = NULL;
 
     return rt;

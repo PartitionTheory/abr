@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/abr_tests.dir/link.d CMakeFiles/abr_tests.dir/__/src/abr_core.c.o -o abr_tests  ../core/libabr_core.a

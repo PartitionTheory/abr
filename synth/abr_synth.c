@@ -1,4 +1,6 @@
 #include "abr_synth.h"
+#include "abr_core.h"
+#include "abr_stream.h"
 
 /*
  * ABR‑Rebirth: Synthetic Math Implementation

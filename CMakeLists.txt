@@ -3,13 +3,13 @@ project(abr C)
 
 set(CMAKE_C_STANDARD 17)
 
+add_subdirectory(cli)
 add_subdirectory(core)
 add_subdirectory(vm)
 add_subdirectory(interface)
 add_subdirectory(operators)
 add_subdirectory(stream)
 add_subdirectory(plugins)
-add_subdirectory(cli)
 add_subdirectory(tests)
 #
 # ABR‑Rebirth: Phase 4 CMake Integration
@@ -34,7 +34,7 @@ add_subdirectory(synth)
 add_subdirectory(dispatch)
 
 # Phase 4: CLI Command Extensions
-add_subdirectory(cli)
+add_subdirectory(cli_ext)
 
 # Phase 4: Plugin Operator Loader
 add_subdirectory(plugins/loader)

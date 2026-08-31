@@ -1,2 +1,0 @@
-/usr/bin/ar qc libabr_plugin_registry.a CMakeFiles/abr_plugin_registry.dir/__/__/src/abr_plugin_registry.c.o
-/usr/bin/ranlib libabr_plugin_registry.a

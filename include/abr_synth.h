@@ -1,3 +1,6 @@
+#include "abr_interface.h"
+#include "abr_stream.h"
+
 #ifndef ABR_SYNTH_H
 #define ABR_SYNTH_H
 
@@ -14,8 +17,6 @@
  * ABR‑Rebirth architecture.
  */
 
-#include "abr_interface.h"
-#include "abr_stream.h"
 
 #ifdef __cplusplus
 extern "C" {

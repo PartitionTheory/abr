@@ -1,2 +1,0 @@
-/usr/bin/ar qc libabr_core.a CMakeFiles/abr_core.dir/__/src/abr_core.c.o
-/usr/bin/ranlib libabr_core.a

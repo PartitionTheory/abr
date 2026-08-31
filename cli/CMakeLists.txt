@@ -1,28 +1,11 @@
-# ---------------------------------------------------------------------------
-# ABR CLI Executable
-# Builds: abr
-# ---------------------------------------------------------------------------
-
+# Phase‑3 CLI (split/join)
 add_executable(abr
-    ../src/main.c
-    ../src/abr_cli.c
+    abr_cli_dispatch.c
+    cli_split.c
+    cli_join.c
+    main_phase3.c
 )
 
 target_include_directories(abr PUBLIC ../include)
-
-target_link_libraries(abr
-    abr_core
-    abr_vm
-    abr_interface
-    abr_operators
-    abr_stream
-    abr_plugins
-    abr_plugin_registry
-)
-
-add_library(abr_cli_commands
-    abr_cli_commands.c
-    abr_cli_integration.c
-)
-target_include_directories(abr_cli_commands PRIVATE ../include)
+target_link_libraries(abr PUBLIC abr_core abr_stream abr_vm abr_operators)
 

@@ -1,3 +1,4 @@
+#include "abr_interface.h"
 #ifndef ABR_CORE_H
 #define ABR_CORE_H
 
@@ -25,8 +26,15 @@ typedef struct abr_context abr_context_t;
  */
 struct abr_runtime {
     int initialized;
+
+    /* Plugin registry (Phase 4 Step 02) */
     void *plugin_registry;
-    void *operator_table;
+
+    /* Operator registry (Phase 4 Step 01) */
+    int operator_count;
+    const abr_operator_info_t **operators;
+
+    /* VM state (Phase 4 Step 03) */
     void *vm_state;
 };
 

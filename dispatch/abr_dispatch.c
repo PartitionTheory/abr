@@ -1,3 +1,5 @@
+#include "abr_exec.h"
+
 /*
  * ABR‑Rebirth: Operator Dispatch Implementation
  * ---------------------------------------------
@@ -8,6 +10,7 @@
  * expand this with plugin operator routing, synthetic math
  * classification, and reversible execution heuristics.
  */
+#include "abr_core.h"
 
 int abr_dispatch(abr_context_t *ctx, int operator_id, void *args)
 {

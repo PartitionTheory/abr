@@ -27,6 +27,17 @@ typedef enum abr_stream_direction {
     ABR_STREAM_INPUT,
     ABR_STREAM_OUTPUT
 } abr_stream_direction_t;
+/*
+ *
+ */
+typedef struct abr_stream_buffer abr_stream_buffer_t;
+
+/*
+ * Buffer structure
+ */
+typedef struct abr_stream {
+    abr_stream_buffer_t *buffer;
+} abr_stream_t;
 
 /*
  * Stream buffer.
@@ -68,9 +79,14 @@ size_t abr_stream_buffer_read(abr_stream_buffer_t *buf, void *data, size_t len);
  */
 int abr_stream_bind_context(abr_context_t *ctx, abr_stream_buffer_t *buf);
 
+/*
+ * Phase‑3 split/join API (stubbed in ABR‑Rebirth)
+ */
+int abr_stream_split(const char *path, int bitWidth);
+int abr_stream_join(const char *hexPath, int bitWidth, int originalBits);
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* ABR_STREAM_H */
-
