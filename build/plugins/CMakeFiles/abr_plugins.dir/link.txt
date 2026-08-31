@@ -1,0 +1,2 @@
+/usr/bin/ar qc libabr_plugins.a CMakeFiles/abr_plugins.dir/__/src/abr_plugin.c.o
+/usr/bin/ranlib libabr_plugins.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libabr_interface.a CMakeFiles/abr_interface.dir/__/src/abr_interface.c.o
+/usr/bin/ranlib libabr_interface.a

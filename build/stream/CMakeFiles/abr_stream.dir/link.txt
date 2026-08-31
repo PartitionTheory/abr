@@ -1,0 +1,2 @@
+/usr/bin/ar qc libabr_stream.a CMakeFiles/abr_stream.dir/__/src/abr_stream.c.o
+/usr/bin/ranlib libabr_stream.a

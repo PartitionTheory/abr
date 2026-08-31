@@ -1,0 +1,2 @@
+/usr/bin/ar qc libabr_operators.a CMakeFiles/abr_operators.dir/__/src/abr_operators.c.o
+/usr/bin/ranlib libabr_operators.a
