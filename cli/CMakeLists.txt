@@ -20,3 +20,9 @@ target_link_libraries(abr
     abr_plugin_registry
 )
 
+add_library(abr_cli_commands
+    abr_cli_commands.c
+    abr_cli_integration.c
+)
+target_include_directories(abr_cli_commands PRIVATE ../include)
+
