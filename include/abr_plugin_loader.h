@@ -1,0 +1,29 @@
+/*
+ * ABR‑Rebirth: Plugin Operator Loader (Phase 4 Step 06)
+ * -----------------------------------------------------
+ * This module defines the API for loading operator definitions
+ * from plugins and integrating them into the ABR runtime.
+ *
+ * It does not modify any Phase 1–3 subsystem. Instead, it adds
+ * new Phase 4 functionality for dynamic operator expansion.
+ */
+
+#include "abr_plugin.h"
+#include "abr_plugin_registry.h"
+#include "abr_runtime.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Load a plugin from a given path and register its operators. */
+int abr_plugin_loader_load(abr_runtime_t *rt, const char *path);
+
+/* Unload a previously loaded plugin. */
+int abr_plugin_loader_unload(abr_runtime_t *rt, const char *path);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ABR_PLUGIN_LOADER_H */
