@@ -17,4 +17,13 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
 const char* abr_plugin_name() {
     return plugin_name;
 }
+abr_plugin* abr_plugin_recursion_engine_create() {
+    abr_plugin* p = malloc(sizeof(abr_plugin));
+    if (!p) return NULL;
+
+    p->name = plugin_name;
+    p->execute = abr_plugin_execute;
+
+    return p;
+}
 

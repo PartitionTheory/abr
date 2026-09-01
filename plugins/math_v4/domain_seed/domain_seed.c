@@ -18,3 +18,12 @@ const char* abr_plugin_name() {
     return plugin_name;
 }
 
+abr_plugin* abr_plugin_domain_seed_create() {
+    abr_plugin* p = malloc(sizeof(abr_plugin));
+    if (!p) return NULL;
+
+    p->name = plugin_name;
+    p->execute = abr_plugin_execute;
+
+    return p;
+}
