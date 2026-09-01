@@ -8,6 +8,7 @@
 #include "abr_synth_math_pow_op.h"
 #include "abr_synth_math_basic_set.h"
 #include "abr_synth_math_activate_op.h"
+#include "abr_synth_math_deactivate_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -35,7 +36,12 @@ void abr_synth_init(abr_context_t* ctx)
 
     /* Initialize math families */
     abr_synth_math_basic_set_init();
+
+    /* Register math activation operator */
     abr_synth_math_activate_op_register(ctx);
+
+    /* Register math deactivation operator */
+    abr_synth_math_deactivate_op_register(ctx);
 
     /* Register set-activation operator */
     abr_synth_activate_op_register(ctx);
