@@ -4,6 +4,7 @@
  * Implements the fundamental runtime and context management functions
  * declared in abr.h and abr_core.h.
  */
+#include "synth/abr_synth_init.h"
 
 #include "abr.h"
 #include "abr_core.h"
@@ -72,7 +73,8 @@ abr_context_t *abr_context_create(abr_runtime_t *rt)
     ctx->vm_exec_state  = NULL;
     ctx->gradient_level = 0;
     ctx->coherence_flag = 0;
-
+    /* Phoenix v0.4-greenbuild: load synthetic operators */
+    abr_synth_init(ctx);
     return ctx;
 }
 
