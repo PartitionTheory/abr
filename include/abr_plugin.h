@@ -2,15 +2,14 @@
 #define ABR_PLUGIN_H
 
 /*
- * ABR-Rebirth: Plugin ABI Definition
- * Internal header — used by dynamic plugins and the plugin registry.
+ * ABR‑Rebirth: Unified Plugin Interface (v0.4‑greenbuild)
  *
- * Every plugin must expose:
- *   - metadata (name, version, description)
- *   - operator registration table
- *   - initialization and shutdown functions
+ * This header merges:
+ *   - Phase 4 ABI plugin system (dynamic .so loading)
+ *   - v0.4 constructor‑based plugin system (static registry)
+ *   - v0.4 JSON carriers for plugin input/output
  *
- * This header defines the stable ABI boundary for all dynamic modules.
+ * ABI loading remains supported but will be deprecated in v0.5.
  */
 
 #include <stddef.h>
@@ -23,52 +22,70 @@ extern "C" {
 typedef struct abr_runtime abr_runtime_t;
 typedef struct abr_operator_info abr_operator_info_t;
 
+/* ------------------------------------------------------------------------- */
+/* v0.4 JSON carriers                                                         */
+/* ------------------------------------------------------------------------- */
+
+/* JSON carrier for plugin input */
+typedef struct abr_plugin_input {
+    const char* json;     /* raw JSON input string */
+} abr_plugin_input;
+
+/* JSON carrier for plugin output */
+typedef struct abr_plugin_result {
+    int status;           /* 0 = failure, 1 = success */
+    const char* message;  /* human-readable message */
+    const char* json;     /* raw JSON output string */
+} abr_plugin_result;
+
+/* ------------------------------------------------------------------------- */
+/* v0.4 constructor‑based plugin interface                                    */
+/* ------------------------------------------------------------------------- */
+
+typedef struct abr_plugin {
+    const char* name;     /* plugin name */
+    abr_plugin_result (*execute)(const abr_plugin_input* input);
+} abr_plugin;
+
+/* Factory constructor signature */
+typedef abr_plugin* (*abr_plugin_create_fn)(void);
+
+/* ------------------------------------------------------------------------- */
+/* Phase 4 ABI plugin interface (unchanged)                                   */
+/* ------------------------------------------------------------------------- */
+
 /*
  * Plugin metadata structure.
- * Every plugin must define one instance of this and export it.
+ * Every ABI plugin must define one instance of this and export it.
  */
 typedef struct abr_plugin_info {
-    const char *name;          /* Human-readable plugin name */
-    const char *version;       /* Plugin version string */
-    const char *description;   /* Short description of plugin functionality */
-
-    /* Number of operators provided by this plugin */
+    const char *name;
+    const char *version;
+    const char *description;
     size_t operator_count;
-
-    /* Pointer to an array of operator metadata */
     const abr_operator_info_t *operators;
 } abr_plugin_info_t;
 
-/*
- * Plugin initialization function.
- * Called when the plugin is loaded by the registry.
- * Returns 0 on success, non-zero on failure.
- */
-typedef int (*abr_plugin_init_fn)(abr_runtime_t *rt);
-
-/*
- * Plugin shutdown function.
- * Called when the plugin is unloaded.
- */
+/* ABI init/shutdown callbacks */
+typedef int  (*abr_plugin_init_fn)(abr_runtime_t *rt);
 typedef void (*abr_plugin_shutdown_fn)(void);
 
 /*
- * Plugin ABI structure.
- * Every plugin must export a symbol named "abr_plugin_abi".
+ * ABI structure exported as "abr_plugin_abi"
  */
 typedef struct abr_plugin_abi {
-    int abi_version;                   /* ABI version for compatibility */
-    abr_plugin_info_t info;            /* Plugin metadata */
-    abr_plugin_init_fn init;           /* Initialization callback */
-    abr_plugin_shutdown_fn shutdown;   /* Shutdown callback */
+    int abi_version;
+    abr_plugin_info_t info;
+    abr_plugin_init_fn init;
+    abr_plugin_shutdown_fn shutdown;
 } abr_plugin_abi_t;
 
-/* Current ABI version for ABR-Rebirth */
+/* ABI version */
 #define ABR_PLUGIN_ABI_VERSION 1
 
+/* ABI loader functions */
 int abr_plugin_load(abr_runtime_t *rt, const abr_plugin_abi_t *abi);
 int abr_plugin_unload(const abr_plugin_abi_t *abi);
-
 
 #ifdef __cplusplus
 }

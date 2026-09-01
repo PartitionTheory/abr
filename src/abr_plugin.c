@@ -57,3 +57,23 @@ int abr_plugin_unload(const abr_plugin_abi_t *abi)
     return 0;
 }
 
+/* ------------------------------------------------------------------------- */
+/* v0.4 JSON carrier helpers                                                  */
+/* ------------------------------------------------------------------------- */
+
+abr_plugin_result abr_plugin_result_init(void)
+{
+    abr_plugin_result r;
+    r.status = 0;
+    r.message = NULL;
+    r.json = NULL;
+    return r;
+}
+
+abr_plugin_input abr_plugin_input_from_json(const char* json)
+{
+    abr_plugin_input in;
+    in.json = json;
+    return in;
+}
+
