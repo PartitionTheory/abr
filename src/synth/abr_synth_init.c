@@ -15,6 +15,7 @@
 #include "abr_synth_pipe_status_op.h"
 #include "abr_synth_pipe_reset_op.h"
 #include "abr_synth_prog_define_op.h"
+#include "abr_synth_prog_run_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -66,6 +67,7 @@ void abr_synth_init(abr_context_t* ctx)
 
     /* Register program definition operator */
     abr_synth_prog_define_op_register(ctx);
+    abr_synth_prog_run_op_register(ctx);
 
     /* Register set-activation operator */
     abr_synth_activate_op_register(ctx);
