@@ -8,6 +8,8 @@
 #include "abr_core.h"
 #include "abr_interface.h"
 #include "abr_operators.h"
+#include "abr_dispatch.h"
+#include "abr_plugin.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -79,3 +81,15 @@ int abr_vm_execute(abr_context_t *ctx, int operator_id, void *args)
     return result;
 }
 
+abr_plugin_result abr_vm_exec_plugin_by_class(abr_context_t* ctx, const char* class_tag, const char* json)
+{
+    if (!ctx || !class_tag) {
+        return (abr_plugin_result){
+            .status = 0,
+            .message = "invalid VM context or class_tag",
+            .json = "{}"
+        };
+    }
+
+    return abr_dispatch_plugin_by_class(ctx, class_tag, json);
+}
