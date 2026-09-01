@@ -4,6 +4,7 @@
 #include "abr_synth_set.h"
 #include "abr_synth_activate_op.h"
 #include "abr_synth_math_add_op.h"
+#include "abr_synth_math_mul_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -20,6 +21,8 @@ void abr_synth_init(abr_context_t* ctx)
 
     /* Math synthetic operators */
     abr_synth_set_add("synth.math", &synth_math_add_op);
+    abr_synth_set_add("synth.math", &synth_math_mul_op);
+
 
     /* Register core operators */
     abr_synth_set_register_all(ctx, "synth.core");
