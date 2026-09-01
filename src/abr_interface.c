@@ -6,6 +6,7 @@
  */
 
 #include "abr_interface.h"
+#include "abr_stream.h"
 #include "abr_core.h"
 #include "abr_operators.h"
 #include "abr_vm.h"
@@ -57,3 +58,15 @@ int abr_interface_execute(abr_context_t *ctx, int operator_id, void *args)
     return abr_vm_execute(ctx, operator_id, args);
 }
 
+abr_bitwindow abr_interface_window(abr_context_t* ctx, size_t offset, size_t length)
+{
+    abr_bitwindow w;
+    w.data = NULL;
+    w.length = 0;
+
+    if (!ctx || !ctx->stream) {
+        return w;
+    }
+
+    return abr_stream_window(ctx->stream, offset, length);
+}

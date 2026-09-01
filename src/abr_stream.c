@@ -138,3 +138,22 @@ int abr_stream_join(const char *hexPath, int bitWidth, int originalBits)
     );
     return 0;
 }
+
+abr_bitwindow abr_stream_window(const abr_stream_t* s, size_t offset, size_t length)
+{
+    abr_bitwindow w;
+    w.data = NULL;
+    w.length = 0;
+
+    if (!s || !s->buffer || !s->buffer->data) {
+        return w;
+    }
+
+    if (offset + length > s->buffer->size) {
+        return w;
+    }
+
+    w.data = s->buffer->data + offset;
+    w.length = length;
+    return w;
+}

@@ -85,6 +85,25 @@ int abr_stream_bind_context(abr_context_t *ctx, abr_stream_buffer_t *buf);
 int abr_stream_split(const char *path, int bitWidth);
 int abr_stream_join(const char *hexPath, int bitWidth, int originalBits);
 
+/*
+ * Phoenix Epoch: Bitstream Window API (v0.4‑greenbuild)
+ *
+ * A bitwindow is a structural slice of the ABR bitstream buffer.
+ * Plugins use windows to inspect or manipulate local regions of the stream.
+ */
+
+typedef struct abr_bitwindow {
+    const unsigned char* data;   /* pointer into buffer */
+    size_t length;               /* window length in bytes */
+} abr_bitwindow;
+
+/*
+ * Extract a window from a stream buffer.
+ * Returns an empty window if out of bounds.
+ */
+abr_bitwindow abr_stream_window(const abr_stream_t* s, size_t offset, size_t length);
+
+
 #ifdef __cplusplus
 }
 #endif

@@ -64,3 +64,18 @@ void abr_context_destroy(abr_context_t *ctx);
 
 #endif /* ABR_INTERFACE_H */
 
+/*
+ * Phoenix Epoch: Bitstream Window API (v0.4‑greenbuild)
+ *
+ * Exposes structural slices of the ABR bitstream to plugins.
+ * Plugins use windows to inspect or manipulate local regions of the stream.
+ */
+
+#include "abr_stream.h"
+
+/*
+ * Extract a bitwindow from the context's bound stream.
+ * Returns an empty window if the context or stream is invalid.
+ */
+abr_bitwindow abr_interface_window(abr_context_t* ctx, size_t offset, size_t length);
+
