@@ -18,6 +18,7 @@
 #include "abr_synth_prog_run_op.h"
 #include "abr_synth_prog_delete_op.h"
 #include "abr_synth_prog_list_op.h"
+#include "abr_synth_vm_boot_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -72,6 +73,7 @@ void abr_synth_init(abr_context_t* ctx)
     abr_synth_prog_run_op_register(ctx);
     abr_synth_prog_delete_op_register(ctx);
     abr_synth_prog_list_op_register(ctx);
+    abr_synth_vm_boot_op_register(ctx);
 
     /* Register set-activation operator */
     abr_synth_activate_op_register(ctx);
