@@ -24,6 +24,7 @@
 #include "abr_synth_vm_reset_op.h"
 #include "abr_synth_vm_status_op.h"
 #include "abr_synth_vm_exec_op.h"
+#include "abr_synth_vm_ilist_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -88,6 +89,7 @@ void abr_synth_init(abr_context_t* ctx)
     abr_synth_vm_reset_op_register(ctx);
     abr_synth_vm_status_op_register(ctx);
     abr_synth_vm_exec_op_register(ctx);
+    abr_synth_vm_ilist_op_register(ctx);
 
 
     /* Register set-activation operator */
