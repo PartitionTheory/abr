@@ -128,3 +128,28 @@ abr_operator_exec_plugin_by_class(abr_context_t* ctx,
 
     return abr_exec_call_plugin_by_class(ctx, class_tag, json);
 }
+
+/*
+ * Phoenix v0.4-greenbuild:
+ * Unified operator plugin execution entry point.
+ *
+ * This consolidates operator-level, execution-layer, and
+ * operator-implementation plugin invocation into a single
+ * stable operator-subsystem API.
+ */
+abr_plugin_result
+abr_operator_plugin(abr_context_t* ctx,
+                    const char* class_tag,
+                    const char* json)
+{
+    if (!ctx || !class_tag) {
+        return (abr_plugin_result){
+            .status = 0,
+            .message = "invalid operator context or class_tag",
+            .json = "{}"
+        };
+    }
+
+    /* Unified path: operator → exec → interface → dispatch → runtime */
+    return abr_exec_call_plugin_by_class(ctx, class_tag, json);
+}
