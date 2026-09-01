@@ -35,6 +35,7 @@
 #include "abr_synth_vm_prun_op.h"
 #include "abr_synth_vm_pstate_op.h"
 #include "abr_synth_vm_preset_op.h"
+#include "abr_synth_vm_pstep_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -110,6 +111,7 @@ void abr_synth_init(abr_context_t* ctx)
     abr_synth_vm_prun_op_register(ctx);
     abr_synth_vm_pstate_op_register(ctx);
     abr_synth_vm_preset_op_register(ctx);
+    abr_synth_vm_pstep_op_register(ctx);
 
 
     /* Register set-activation operator */
