@@ -38,6 +38,25 @@ abr_operator_call_plugin_by_class(abr_context_t* ctx,
 
 #endif
 
+#ifndef ABR_OPERATOR_PLUGIN_IMPL_EXEC_H
+#define ABR_OPERATOR_PLUGIN_IMPL_EXEC_H
+
+#include "abr_plugin.h"
+
+/*
+ * Phoenix v0.4-greenbuild:
+ * Operator-implementation plugin invocation API.
+ *
+ * This exposes the operator-implementation bridge so that
+ * operator code can call plugins without including source files.
+ */
+abr_plugin_result
+abr_operator_exec_plugin_by_class(abr_context_t* ctx,
+                                  const char* class_tag,
+                                  const char* json);
+
+#endif
+
 
 #endif
 
