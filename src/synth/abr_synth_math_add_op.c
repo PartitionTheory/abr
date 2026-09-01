@@ -22,7 +22,15 @@ static abr_synth_operator_t synth_math_add_op = {
  */
 static int synth_math_add_exec(abr_context_t* ctx, void* args)
 {
-    return abr_synth_execute(ctx, &synth_math_add_op, args);
+	const char* json = (const char*)args;
+	int a = abr_json_min_get_int(json, "a");
+	int b = abr_json_min_get_int(json, "b");
+
+	char payload[64];
+	snprintf(payload, sizeof(payload), "{\"result\": %d}", a + b);
+
+	return abr_synth_execute(ctx, &synth_math_add_op, payload);
+
 }
 
 /*
