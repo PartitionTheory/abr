@@ -1,6 +1,9 @@
 #include "../../include/abr_plugin_loader.h"
 #include <dlfcn.h>
 #include <stdio.h>
+#include "abr_plugin_registry.h"
+#include "abr_plugin.h"
+#include <string.h>
 
 /*
  * ABR‑Rebirth: Plugin Operator Loader Implementation
@@ -67,3 +70,16 @@ int abr_plugin_load(abr_runtime_t *rt, const abr_plugin_abi_t *abi)
     return 0;
 }
 
+abr_plugin* abr_plugin_load_by_class(const char* class_tag)
+{
+    size_t count = 0;
+    const abr_plugin_descriptor* table = abr_plugin_registry(&count);
+
+    for (size_t i = 0; i < count; ++i) {
+        if (table[i].class_tag && strcmp(table[i].class_tag, class_tag) == 0) {
+            return table[i].create();
+        }
+    }
+
+    return NULL;
+}
