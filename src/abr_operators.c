@@ -6,7 +6,8 @@
 
 #include "abr_operators.h"
 #include "abr_core.h"
-
+#include "exec/abr_exec.h"
+#include "abr_plugin.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -105,3 +106,25 @@ const abr_operator_entry_t *abr_operator_lookup(abr_runtime_t *rt, int operator_
     return NULL;
 }
 
+/*
+ * Phoenix v0.4-greenbuild:
+ * Operator-implementation class-based plugin invocation.
+ *
+ * This allows operator implementations to call plugins directly
+ * through the execution layer during operator execution.
+ */
+abr_plugin_result
+abr_operator_exec_plugin_by_class(abr_context_t* ctx,
+                                  const char* class_tag,
+                                  const char* json)
+{
+    if (!ctx || !class_tag) {
+        return (abr_plugin_result){
+            .status = 0,
+            .message = "invalid operator context or class_tag",
+            .json = "{}"
+        };
+    }
+
+    return abr_exec_call_plugin_by_class(ctx, class_tag, json);
+}
