@@ -1,105 +1,33 @@
-/*
- * ABR-Rebirth: Plugin Registry
- *
- * Manages loaded plugins and provides a central registry structure.
- */
-
+#include "abr_plugin_registry.h"
 #include "abr_plugin.h"
-#include "abr_core.h"
 
-#include <stdlib.h>
-#include <string.h>
+// v0.4 plugin headers
+#include "invariant_explorer.h"
+#include "manifold_dynamics.h"
+#include "recursion_engine.h"
+#include "domain_creation.h"
+#include "externalization.h"
+#include "phi_stability.h"
+#include "density_index.h"
+#include "operator_chain.h"
+#include "graph_classifier.h"
+#include "domain_seed.h"
 
-/* ------------------------------------------------------------------------- */
-/* Registry structure                                                         */
-/* ------------------------------------------------------------------------- */
+static const abr_plugin_descriptor plugin_table[] = {
+    { "invariant_explorer",   abr_plugin_invariant_explorer_create },
+    { "manifold_dynamics",    abr_plugin_manifold_dynamics_create },
+    { "recursion_engine",     abr_plugin_recursion_engine_create },
+    { "domain_creation",      abr_plugin_domain_creation_create },
+    { "externalization",      abr_plugin_externalization_create },
+    { "phi_stability",        abr_plugin_phi_stability_create },
+    { "density_index",        abr_plugin_density_index_create },
+    { "operator_chain",       abr_plugin_operator_chain_create },
+    { "graph_classifier",     abr_plugin_graph_classifier_create },
+    { "domain_seed",          abr_plugin_domain_seed_create }
+};
 
-typedef struct abr_plugin_registry {
-    const abr_plugin_abi_t **plugins;
-    size_t count;
-    size_t capacity;
-} abr_plugin_registry_t;
-
-/* Internal helper to get or create registry */
-static abr_plugin_registry_t *abr_get_registry(abr_runtime_t *rt)
-{
-    if (!rt || !rt->initialized) {
-        return NULL;
-    }
-
-    if (!rt->plugin_registry) {
-        abr_plugin_registry_t *reg =
-            (abr_plugin_registry_t *)malloc(sizeof(abr_plugin_registry_t));
-        if (!reg) {
-            return NULL;
-        }
-
-        reg->plugins  = NULL;
-        reg->count    = 0;
-        reg->capacity = 0;
-
-        rt->plugin_registry = reg;
-    }
-
-    return (abr_plugin_registry_t *)rt->plugin_registry;
-}
-
-/* ------------------------------------------------------------------------- */
-/* Load plugin into registry                                                  */
-/* ------------------------------------------------------------------------- */
-
-int abr_plugin_registry_add(abr_runtime_t *rt, const abr_plugin_abi_t *abi)
-{
-    abr_plugin_registry_t *reg = abr_get_registry(rt);
-    if (!reg) {
-        return -1;
-    }
-
-    /* Grow registry if needed */
-    if (reg->count == reg->capacity) {
-        size_t new_cap = (reg->capacity == 0) ? 4 : reg->capacity * 2;
-        const abr_plugin_abi_t **new_list =
-            (const abr_plugin_abi_t **)realloc(reg->plugins,
-                                               new_cap * sizeof(*new_list));
-        if (!new_list) {
-            return -2;
-        }
-
-        reg->plugins  = new_list;
-        reg->capacity = new_cap;
-    }
-
-    reg->plugins[reg->count++] = abi;
-    return 0;
-}
-
-/* ------------------------------------------------------------------------- */
-/* Unload plugin from registry                                                */
-/* ------------------------------------------------------------------------- */
-
-int abr_plugin_registry_remove(abr_runtime_t *rt, const abr_plugin_abi_t *abi)
-{
-    abr_plugin_registry_t *reg = abr_get_registry(rt);
-    if (!reg) {
-        return -1;
-    }
-
-    for (size_t i = 0; i < reg->count; ++i) {
-        if (reg->plugins[i] == abi) {
-
-            /* Call plugin shutdown */
-            abr_plugin_unload(abi);
-
-            /* Compact list */
-            memmove(&reg->plugins[i],
-                    &reg->plugins[i + 1],
-                    (reg->count - i - 1) * sizeof(*reg->plugins));
-
-            reg->count--;
-            return 0;
-        }
-    }
-
-    return -2; /* Not found */
+const abr_plugin_descriptor* abr_plugin_registry(size_t* count) {
+    *count = sizeof(plugin_table) / sizeof(plugin_table[0]);
+    return plugin_table;
 }
 
