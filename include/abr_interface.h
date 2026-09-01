@@ -79,3 +79,16 @@ void abr_context_destroy(abr_context_t *ctx);
  */
 abr_bitwindow abr_interface_window(abr_context_t* ctx, size_t offset, size_t length);
 
+#ifndef ABR_INTERFACE_PLUGIN_CLASS_EXEC_H
+#define ABR_INTERFACE_PLUGIN_CLASS_EXEC_H
+
+#include "abr_plugin.h"
+
+/* Phoenix v0.4-greenbuild: class-based plugin execution API */
+abr_plugin_result
+abr_interface_exec_plugin_by_class(abr_context_t* ctx,
+                                   const char* class_tag,
+                                   const char* json);
+
+#endif
+
