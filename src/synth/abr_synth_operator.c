@@ -30,10 +30,8 @@ abr_synth_operator_execute(abr_context_t* ctx,
     }
 
     /* Synthetic operators always call plugins by class. */
-    abr_plugin_result r =
-        abr_synth_plugin(ctx, op->class_tag, (const char*)args);
+    return abr_synth_execute(ctx, op, args);
 
-    return r.status;
 }
 
 /*

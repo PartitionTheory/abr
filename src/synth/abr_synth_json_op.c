@@ -20,8 +20,19 @@ static abr_synth_operator_t synth_json_op = {
  * Register Synthetic Operator #2.
  * Called during synthetic subsystem initialization.
  */
+static int synth_json_exec(abr_context_t* ctx, void* args)
+{
+    return abr_synth_execute(ctx, &synth_json_op, args);
+}
+
 void abr_synth_json_op_register(abr_context_t* ctx)
 {
-    abr_synth_operator_register(ctx, &synth_json_op);
+    abr_operator_t o = {
+        .operator_id = synth_json_op.operator_id,
+        .name = synth_json_op.name,
+        .execute = synth_json_exec
+    };
+
+    abr_register_operator(ctx, &o);
 }
 
