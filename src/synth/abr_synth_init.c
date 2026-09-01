@@ -28,6 +28,7 @@
 #include "abr_synth_vm_imeta_op.h"
 #include "abr_synth_vm_idesc_op.h"
 #include "abr_synth_vm_icost_op.h"
+#include "abr_synth_vm_pload_op.h"
 
 /*
  * Phoenix v0.4-greenbuild:
@@ -96,6 +97,7 @@ void abr_synth_init(abr_context_t* ctx)
     abr_synth_vm_imeta_op_register(ctx);
     abr_synth_vm_idesc_op_register(ctx);
     abr_synth_vm_icost_op_register(ctx);
+    abr_synth_vm_pload_op_register(ctx);
 
 
     /* Register set-activation operator */
