@@ -10,6 +10,7 @@
 #include "abr_core.h"
 #include "abr_operators.h"
 #include "abr_vm.h"
+#include "abr_plugin.h"
 
 #include <stdlib.h>
 
@@ -69,4 +70,17 @@ abr_bitwindow abr_interface_window(abr_context_t* ctx, size_t offset, size_t len
     }
 
     return abr_stream_window(ctx->stream, offset, length);
+}
+
+abr_plugin_result abr_interface_exec_plugin_by_class(abr_context_t* ctx, const char* class_tag, const char* json)
+{
+    if (!ctx || !class_tag) {
+        return (abr_plugin_result){
+            .status = 0,
+            .message = "invalid interface context or class_tag",
+            .json = "{}"
+        };
+    }
+
+    return abr_vm_exec_plugin_by_class(ctx, class_tag, json);
 }
