@@ -13,6 +13,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
 
     return result;
 }
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"stability\":{\"phi\":\"Φ\",\"state\":\"stable\"}"
+    "}";
 
 const char* abr_plugin_name() {
     return plugin_name;

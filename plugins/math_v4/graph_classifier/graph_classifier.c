@@ -10,6 +10,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     // v0.4: Graph classification stub
     result.status = 1;
     result.message = "Graph Classifier: structural class label assigned.";
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"graph\":{\"class\":\"synthetic\",\"nodes\":1}"
+    "}";
 
     return result;
 }

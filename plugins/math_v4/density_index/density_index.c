@@ -10,6 +10,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     // v0.4: Density / index stub
     result.status = 1;
     result.message = "Density Index: structural density and index evaluated.";
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"density\":{\"index\":1,\"mode\":\"synthetic\"}"
+    "}";
 
     return result;
 }

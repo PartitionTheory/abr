@@ -10,6 +10,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     // v0.4: Phoenix Epoch invariant computation
     result.status = 1;
     result.message = "Invariant Explorer: ΔG/ΩG/Φₛ computed.";
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"invariant\":{\"delta\":\"ΔG\",\"omega\":\"ΩG\",\"phi\":\"Φₛ\"}"
+    "}";
 
     return result;
 }

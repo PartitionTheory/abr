@@ -10,6 +10,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     // v0.4: Phoenix Epoch recursion stability stub
     result.status = 1;
     result.message = "Recursion Engine: structural recursion chain evaluated.";
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"recursion\":{\"depth\":1,\"seed\":\"R₀\"}"
+    "}";
 
     return result;
 }

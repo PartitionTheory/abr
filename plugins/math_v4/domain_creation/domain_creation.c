@@ -10,6 +10,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     // v0.4: Phoenix Epoch-17 domain creation stub
     result.status = 1;
     result.message = "Domain Creation: new domain generated from input structure.";
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"domain\":{\"seed\":\"D₀\",\"type\":\"synthetic\"}"
+    "}";
 
     return result;
 }

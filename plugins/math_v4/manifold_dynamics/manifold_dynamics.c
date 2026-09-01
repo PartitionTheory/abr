@@ -10,6 +10,11 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     // v0.4: Phoenix Epoch-10 manifold motion stub
     result.status = 1;
     result.message = "Manifold Dynamics: graph manifold transition computed.";
+    result.json =
+    "{"
+    "\"epoch\":\"phoenix\","
+    "\"manifold\":{\"dimension\":3,\"curvature\":\"synthetic\"}"
+    "}";
 
     return result;
 }
