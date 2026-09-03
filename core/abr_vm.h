@@ -1,34 +1,63 @@
 /*
  * abr_vm.h — ABR v0.5
  *
- * Public interface for the ABR virtual machine.
- * Defines the VM lifecycle and execution API used by the core runtime,
- * dispatch layer, and plugin system.
+ * Minimal VM layer for ABR.
+ * Provides a lightweight execution wrapper around:
+ *   - context
+ *   - dispatch
+ *   - execution layer
+ *   - synthetic VM trace
  *
  * Phoenix Annotation (scflder):
- *   f = front of VM entry
- *   s = second / step in execution path selection
- *   l = last stage before returning residue
- *   c = clock domain incremented on execution
- *   d = degree domain may be adjusted by plugin metadata
- *   e = eternal set preserved across VM operations
- *   r = residue domain produced after execution
+ *   f = front (initial window)
+ *   s = second (step through execution)
+ *   l = last (terminal window)
+ *   d = degree domain (window width)
+ *   r = residue domain (last result)
  */
 
 #ifndef ABR_VM_H
 #define ABR_VM_H
 
+#include <stdint.h>
+#include <stddef.h>
 #include "abr_context.h"
-#include "abr_plugin.h"
+#include "abr_exec.h"
 
-/* Initialize the VM (f). */
-int abr_vm_init(abr_context_t* ctx);
+/* VM object (v0.5 minimal). */
+typedef struct abr_vm {
+    abr_context ctx;   /* execution context */
+} abr_vm;
 
-/* Shut down the VM (l). */
-void abr_vm_shutdown(abr_context_t* ctx);
+/* Initialize VM with initial window and width. */
+void abr_vm_init(
+    abr_vm* vm,
+    uint64_t window,
+    size_t width
+);
 
-/* Execute a plugin inside the VM (f → s → l sequence). */
-int abr_vm_execute(abr_plugin_t* plugin, abr_context_t* ctx);
+/* Execute extraction through VM. */
+uint64_t abr_vm_extract(
+    abr_vm* vm,
+    const uint8_t* src,
+    size_t src_size,
+    size_t bit_offset,
+    size_t bit_length
+);
+
+/* Execute slicing through VM. */
+uint64_t abr_vm_slice(
+    abr_vm* vm,
+    uint64_t window,
+    size_t bit_offset,
+    size_t bit_length
+);
+
+/* Execute plugin through VM. */
+void abr_vm_plugin(
+    abr_vm* vm,
+    const char* plugin_name
+);
 
 #endif /* ABR_VM_H */
 
