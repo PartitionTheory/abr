@@ -48,7 +48,7 @@ const abr_operator_info_t *abr_get_operator_info(abr_runtime_t *rt, int operator
 
 int abr_interface_execute(abr_context_t *ctx, int operator_id, void *args)
 {
-    if (!ctx || !ctx->runtime || !ctx->runtime->initialized) {
+    if (!ctx || !ctx->vm_state) {
         return -1;
     }
 
@@ -65,11 +65,11 @@ abr_bitwindow abr_interface_window(abr_context_t* ctx, size_t offset, size_t len
     w.data = NULL;
     w.length = 0;
 
-    if (!ctx || !ctx->stream) {
+    if (!ctx || !ctx->stream_state) {
         return w;
     }
 
-    return abr_stream_window(ctx->stream, offset, length);
+    return abr_stream_window(ctx->stream_state, offset, length);
 }
 
 abr_plugin_result abr_interface_exec_plugin_by_class(abr_context_t* ctx, const char* class_tag, const char* json)

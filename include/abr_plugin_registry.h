@@ -1,26 +1,23 @@
 #ifndef ABR_PLUGIN_REGISTRY_H
 #define ABR_PLUGIN_REGISTRY_H
 
-/*
- * ABR‑Rebirth: Plugin Registry (Phase 4)
- * --------------------------------------
- * Tracks loaded plugins and their ABIs.
- */
-
-#include "abr_plugin_abi.h"
-#include "abr_core.h"
+#include "abr_plugin.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int abr_plugin_registry_add(abr_runtime_t *rt,
-                            const char *path,
-                            void *handle,
-                            const abr_plugin_abi_t *abi);
+typedef struct abr_plugin_descriptor {
+    const char* name;
+    abr_plugin* (*create_fn)(void);
+} abr_plugin_descriptor;
 
-int abr_plugin_registry_remove(abr_runtime_t *rt,
-                               const char *path);
+/* Return the static plugin table */
+const abr_plugin_descriptor* abr_plugin_registry(size_t* count);
+
+/* Lookup helpers */
+abr_plugin* abr_plugin_registry_find_by_name(const char* name);
+abr_plugin* abr_plugin_registry_find_by_class(const char* class_tag);
 
 #ifdef __cplusplus
 }

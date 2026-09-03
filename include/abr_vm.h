@@ -11,6 +11,8 @@
  */
 
 #include <stddef.h>
+#include "abr_plugin.h"
+#include "abr_context.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,7 +20,6 @@ extern "C" {
 
 /* Forward declarations */
 typedef struct abr_runtime abr_runtime_t;
-typedef struct abr_context abr_context_t;
 
 /*
  * VM execution state.
@@ -49,6 +50,14 @@ void abr_vm_shutdown(abr_vm_state_t *vm);
  * Returns 0 on success, non-zero on failure.
  */
 int abr_vm_execute(abr_context_t *ctx, int operator_id, void *args);
+
+/*
+ * Execute a plugin by class tag via the VM/dispatch layer.
+ * Returns an abr_plugin_result describing status and JSON payload.
+ */
+abr_plugin_result abr_vm_exec_plugin_by_class(abr_context_t *ctx,
+                                              const char *class_tag,
+                                              const char *json);
 
 #ifdef __cplusplus
 }

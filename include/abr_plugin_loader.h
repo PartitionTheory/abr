@@ -14,7 +14,6 @@
 #include <stddef.h>
 #include "abr_interface.h"
 #include "abr_core.h"
-#include "abr_plugin_abi.h"
 #include "abr_plugin_registry.h"
 #include "abr_plugin.h"
 

@@ -6,10 +6,10 @@
 
 #include "abr_operators.h"
 #include "abr_core.h"
-#include "exec/abr_exec.h"
 #include "abr_plugin.h"
 #include <stdlib.h>
 #include <string.h>
+#include "abr_dispatch.h"
 
 /* ------------------------------------------------------------------------- */
 /* Internal operator table                                                   */
@@ -125,8 +125,8 @@ abr_operator_exec_plugin_by_class(abr_context_t* ctx,
             .json = "{}"
         };
     }
+    return abr_dispatch_plugin_by_class(ctx, class_tag, json);
 
-    return abr_exec_call_plugin_by_class(ctx, class_tag, json);
 }
 
 /*
@@ -151,5 +151,6 @@ abr_operator_plugin(abr_context_t* ctx,
     }
 
     /* Unified path: operator → exec → interface → dispatch → runtime */
-    return abr_exec_call_plugin_by_class(ctx, class_tag, json);
+    return abr_dispatch_plugin_by_class(ctx, class_tag, json);
+
 }

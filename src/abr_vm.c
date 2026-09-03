@@ -57,26 +57,23 @@ void abr_vm_shutdown(abr_vm_state_t *vm)
 
 int abr_vm_execute(abr_context_t *ctx, int operator_id, void *args)
 {
-    if (!ctx || !ctx->runtime || !ctx->runtime->initialized) {
+    if (!ctx || !ctx->vm_state) {
         return -1;
     }
 
-    abr_runtime_t *rt = ctx->runtime;
+    /* For now, operator lookup uses global VM/runtime wiring.
+       ctx->vm_state is the canonical VM handle. */
 
     /* Lookup operator entry */
     const abr_operator_entry_t *entry =
-        abr_operator_lookup(rt, operator_id);
+        abr_operator_lookup(NULL, operator_id); /* runtime will be threaded later */
 
     if (!entry || !entry->fn) {
         return -2; /* Operator not found */
     }
 
-    /* Gradient/coherence enforcement will be added later */
-
     /* Execute operator */
     int result = entry->fn(ctx, args);
-
-    /* Reversible execution bookkeeping will be added later */
 
     return result;
 }

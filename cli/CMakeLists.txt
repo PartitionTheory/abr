@@ -7,5 +7,12 @@ add_executable(abr
 )
 
 target_include_directories(abr PUBLIC ../include)
-target_link_libraries(abr PUBLIC abr_core abr_stream abr_vm abr_operators)
+target_link_libraries(abr PUBLIC
+    abr_core
+    abr_stream
+    abr_vm
+    abr_operators
+    abr_plugin_registry
+    abr_math_v4_plugins
+)
 

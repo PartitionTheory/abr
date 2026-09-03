@@ -1,6 +1,8 @@
 #include "abr_plugin.h"
 #include "abr_synth.h"
 #include "abr_core.h"
+#include <stdlib.h>     // for malloc, free
+#include <string.h>     // if you use memcpy, memset, strcpy
 
 static const char* plugin_name = "phi_stability";
 
@@ -11,13 +13,13 @@ abr_plugin_result abr_plugin_execute(const abr_plugin_input* input) {
     result.status = 1;
     result.message = "Phi Stability: Φₛ stability evaluated for input structure.";
 
-    return result;
-}
     result.json =
     "{"
     "\"epoch\":\"phoenix\","
     "\"stability\":{\"phi\":\"Φ\",\"state\":\"stable\"}"
     "}";
+    return result;
+}
 
 const char* abr_plugin_name() {
     return plugin_name;

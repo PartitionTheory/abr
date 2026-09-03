@@ -18,7 +18,7 @@ extern "C" {
 
 /* Forward declarations for internal subsystems */
 typedef struct abr_runtime abr_runtime_t;
-typedef struct abr_context abr_context_t;
+struct abr_context;
 
 /*
  * Core runtime structure.
@@ -38,20 +38,10 @@ struct abr_runtime {
     void *vm_state;
 };
 
-/*
- * Computation context.
- * Holds per-execution reversible state, gradient limits, and coherence flags.
- */
-struct abr_context {
-    abr_runtime_t *runtime;
-    void *vm_exec_state;
-    int gradient_level;
-    int coherence_flag;
-};
-
 #ifdef __cplusplus
 }
 #endif
+
 abr_runtime_t *abr_init(void);
 void abr_shutdown(abr_runtime_t *rt);
 

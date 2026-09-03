@@ -3,14 +3,21 @@ cmake_minimum_required(VERSION 3.16)
 
 project(abr_math_v4_plugins)
 
-add_subdirectory(invariant_explorer)
-add_subdirectory(manifold_dynamics)
-add_subdirectory(recursion_engine)
-add_subdirectory(domain_creation)
-add_subdirectory(externalization)
-add_subdirectory(phi_stability)
-add_subdirectory(density_index)
-add_subdirectory(operator_chain)
-add_subdirectory(graph_classifier)
-add_subdirectory(domain_seed)
+# Build all v0.4 plugins into a single static library
+add_library(abr_math_v4_plugins STATIC
+    invariant_explorer/invariant_explorer.c
+    manifold_dynamics/manifold_dynamics.c
+    recursion_engine/recursion_engine.c
+    domain_creation/domain_creation.c
+    externalization/externalization.c
+    phi_stability/phi_stability.c
+    density_index/density_index.c
+    operator_chain/operator_chain.c
+    graph_classifier/graph_classifier.c
+    domain_seed/domain_seed.c
+)
+
+target_include_directories(abr_math_v4_plugins PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/../..    # for abr_plugin.h, abr_core.h, etc.
+)
 

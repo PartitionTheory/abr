@@ -1,6 +1,8 @@
 #include "abr_plugin.h"
 #include "abr_synth.h"
 #include "abr_core.h"
+#include <stdlib.h>     // for malloc, free
+#include <string.h>     // if you use memcpy, memset, strcpy
 
 static const char* plugin_name = "graph_classifier";
 

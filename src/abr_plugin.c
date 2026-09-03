@@ -78,13 +78,13 @@ abr_plugin_input abr_plugin_input_from_json(const char* json)
     return in;
 }
 
-abr_plugin* abr_runtime_load_plugin_by_class(abr_runtime_t* rt, const char* class_tag)
+abr_plugin *abr_runtime_load_plugin_by_class(const char *class_tag)
 {
-    (void)rt; /* runtime not used yet in v0.4-greenbuild */
-
     if (!class_tag) {
         return NULL;
     }
 
-    return abr_plugin_load_by_class(class_tag);
+    /* Phase‑4 static registry lookup */
+    return abr_plugin_registry_find_by_class(class_tag);
 }
+
