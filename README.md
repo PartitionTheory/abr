@@ -823,7 +823,7 @@ Example output:
   "combinations": 3,
   "structural_identity": true
 }
-
+```
 JSON output is used for:
 
 structural windows
