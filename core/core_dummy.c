@@ -1,37 +1,19 @@
 /*
  * core_dummy.c — ABR v0.5
  *
- * A placeholder core module used for testing, scaffolding, and ensuring
- * the build system remains stable as new core transforms are added.
+ * Dummy placeholder module for the core subsystem.
+ * Provides a stable symbol required by the build system and ABI.
  *
  * Phoenix Annotation (scflder):
- *   f = front of dummy entry
- *   s = second / step (no-op transform)
- *   l = last stage (return unchanged)
- *   c = clock domain (increment for testing)
- *   d = degree domain (unchanged)
- *   e = eternal set (preserved)
- *   r = residue domain (unchanged)
+ *   f = front (entry point)
+ *   l = last (terminal no-op)
  */
 
-#include "abr_context.h"
+#include "core_dummy.h"
 
-/* -------------------------------------------------------------------------
- * core_dummy
- *
- * A no-op core transform. Increments the clock and returns success.
- * ------------------------------------------------------------------------- */
-int core_dummy(abr_context_t* ctx)
+/* Stable ABI symbol — intentionally does nothing. */
+void abr_core_dummy(void)
 {
-    if (!ctx)
-        return -1;
-
-    /* c = increment clock domain */
-    ctx->clock++;
-
-    /* s = no-op transform */
-
-    /* l = return unchanged */
-    return 0;
+    /* no-op */
 }
 
