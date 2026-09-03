@@ -1,5 +1,104 @@
 # ABR v0.5 — Phoenix Synthetic Mathematics Architecture
-Design Document — Chunk 1
+
+ABR v0.5 — Canonical Directory Layout
+This is the official, deterministic directory structure for ABR v0.5.
+
+abr/
+├── CMakeLists.txt
+├── README.md
+│
+├── include/
+│   ├── abr.h
+│   ├── abr_cli.h
+│   ├── abr_context.h
+│   ├── abr_core.h
+│   ├── abr_dispatch.h
+│   ├── abr_exec.h
+│   ├── abr_interface.h
+│   ├── abr_json_min.h
+│   ├── abr_operators.h
+│   ├── abr_operator_chain.h
+│   ├── abr_plugin.h
+│   ├── abr_plugin_loader.h
+│   ├── abr_plugin_loader_builtin.h
+│   ├── abr_plugin_loader_math_v4.h
+│   ├── abr_plugin_registry.h
+│   ├── abr_plugin_result.h
+│   ├── abr_runtime_context.h
+│   ├── abr_runtime_execute.h
+│   ├── abr_runtime_pipeline.h
+│   ├── abr_stream.h
+│   ├── abr_system.h
+│   ├── abr_vm.h
+│
+├── core/
+│   ├── runtime/
+│   │   ├── abr_runtime_context.c
+│   │   ├── abr_runtime_execute.c
+│   │   ├── abr_runtime_pipeline.c
+│   │
+│   ├── system/
+│   │   ├── abr_system.c
+│   │
+│   ├── dispatch/
+│   │   ├── abr_dispatch.c
+│   │
+│   ├── stream/
+│   │   ├── abr_stream.c
+│   │
+│   ├── operators/
+│   │   ├── abr_operators.c
+│   │   ├── abr_operator_chain.c
+│   │
+│   ├── loader/
+│   │   ├── abr_plugin_loader.c
+│   │   ├── abr_plugin_loader_builtin.c
+│   │   ├── abr_plugin_loader_math_v4.c
+│   │
+│   ├── registry/
+│   │   ├── abr_plugin_registry.c
+│
+├── plugins/
+│   ├── builtin/
+│   │   ├── identity.c
+│   │   ├── not.c
+│   │
+│   ├── math_v4/
+│       ├── manifold_dynamics.c
+│       ├── manifold_dynamics_extension.c
+│       ├── invariant_explorer.c
+│       ├── recursion_engine.c
+│       ├── density_index.c
+│       ├── phi_stability.c
+│       ├── domain_seed.c
+│       ├── operator_chain.c
+│
+├── cli/
+│   ├── abr_cli.c
+│
+├── vm/
+│   ├── abr_vm.c
+│
+└── tests/
+    ├── test_runtime.c
+    ├── test_plugins.c
+    ├── test_pipeline.c
+    ├── test_vm.c
+
+ABR v0.5 — Release Packaging
+The canonical release package contains:
+
+abr-v0.5/
+├── src/        # all .c files
+├── include/    # all .h files
+├── plugins/    # builtin + math_v4
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+└── examples/
+    ├── example_cli.sh
+    ├── example_vm_session.txt
+    ├── example_pipeline.txt
 
 ## 1. Introduction
 
