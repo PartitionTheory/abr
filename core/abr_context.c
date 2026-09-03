@@ -1,60 +1,51 @@
 /*
  * abr_context.c — ABR v0.5
  *
- * Implements the ABR runtime context object.
- * The context stores global runtime state used by the VM, plugin registry,
- * dispatch layer, and execution engine.
+ * Core execution context implementation.
+ * Initializes window state, residue state, width domain,
+ * plugin registry pointer, and synthetic VM trace accumulator.
  *
  * Phoenix Annotation (scflder):
- *   f = front of runtime chain (context creation)
- *   s = second / step after core entry
- *   l = last stage during shutdown
- *   c = clock domain (runtime progression)
- *   d = degree domain (unary expansion)
- *   e = eternal set (persistent invariants)
- *   r = residue domain (post-operation remainder)
+ *   f = front (initial window)
+ *   s = second (step through execution)
+ *   l = last (terminal window)
+ *   d = degree domain (window width)
+ *   r = residue domain (last result)
  */
 
 #include "abr_context.h"
-#include <stdlib.h>
+#include <string.h>
 
-/* -------------------------------------------------------------------------
- * abr_context_create
- *
- * Allocates and initializes a new ABR context.
- * This is the 'f' (front) of the context lifecycle.
- * ------------------------------------------------------------------------- */
-abr_context_t* abr_context_create(void)
+/* Initialize context with window and width. */
+void abr_context_init(
+    abr_context* ctx,
+    uint64_t window,
+    size_t width
+)
 {
-    abr_context_t* ctx = calloc(1, sizeof(abr_context_t));
-    if (!ctx)
-        return NULL;
+    if (!ctx) return;
 
-    /* Initialize clock (c), degree (d), eternal set (e), residue (r). */
-    ctx->clock = 0;
-    ctx->degree = 0;
-    ctx->eternal = NULL;
-    ctx->residue = NULL;
+    ctx->window  = window;   /* f */
+    ctx->residue = 0;        /* r */
+    ctx->width   = width;    /* d */
 
-    return ctx;
+    /* Initialize synthetic VM trace accumulator. */
+    ctx->trace.events = NULL;
+    ctx->trace.count  = 0;
+
+    /* Plugin registry pointer initially NULL. */
+    ctx->plugin_registry = NULL;
 }
 
-/* -------------------------------------------------------------------------
- * abr_context_destroy
- *
- * Frees the ABR context.
- * This is the 'l' (last) stage of the context lifecycle.
- * Eternal-set 'e' invariants are preserved externally.
- * ------------------------------------------------------------------------- */
-void abr_context_destroy(abr_context_t* ctx)
+/* Reset residue and trace. */
+void abr_context_reset(abr_context* ctx)
 {
-    if (!ctx)
-        return;
+    if (!ctx) return;
 
-    /* Free residue 'r' if allocated. */
-    if (ctx->residue)
-        free(ctx->residue);
+    ctx->residue = 0; /* r */
 
-    free(ctx);
+    /* Clear trace accumulator. */
+    ctx->trace.events = NULL;
+    ctx->trace.count  = 0;
 }
 
