@@ -1,43 +1,31 @@
 /*
  * core_slice.c — ABR v0.5
  *
- * Implements slicing operations for Window objects.
- * This is the low-level utility used by window plugins and the
- * extraction pipeline.
+ * Implementation of core window slicing utilities.
+ * Provides safe slicing of bit‑windows into sub‑windows, enabling
+ * operator‑level decomposition and VM‑level window partitioning.
  *
  * Phoenix Annotation (scflder):
- *   f = front of slice entry
- *   s = second / step in bit copy
- *   l = last stage before subwindow assembly
- *   c = clock domain (slice may increment runtime clock)
- *   d = degree domain (subwindow width relates to unary degree)
- *   e = eternal set (structural invariants preserved)
- *   r = residue domain (unused for slicing)
+ *   f = front of slice (start of sub‑window)
+ *   s = second / step through slice bits
+ *   l = last bit of slice
+ *   d = degree (slice width)
+ *   r = residue (remaining bits after slice)
  */
 
-#include "windowset.h"
-#include <stdlib.h>
-#include <string.h>
+#include "core_slice.h"
+#include <stddef.h>
+#include <stdint.h>
 
-/* -------------------------------------------------------------------------
- * core_slice
- *
- * Extracts a subwindow from src[a..b).
- * This is the 'f → s → l' sequence.
- * ------------------------------------------------------------------------- */
-Window core_slice(const Window* src, size_t a, size_t b)
+/* Stable ABI symbol for linking.
+ * Forwards to the inline implementation in core_slice.h.
+ */
+uint64_t abr_core_slice_window_fn(
+    uint64_t window,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    Window w;
-
-    /* f = front: compute new length */
-    w.length = b - a;
-    w.width  = w.length;
-
-    /* s = second: allocate and copy bits */
-    w.bits = malloc(w.length);
-    memcpy(w.bits, src->bits + a, w.length);
-
-    /* l = last: subwindow assembled */
-    return w;
+    return abr_core_slice_window(window, bit_offset, bit_length);
 }
 
