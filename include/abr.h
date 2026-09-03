@@ -1,51 +1,79 @@
 /*
  * abr.h — ABR v0.5
  *
- * Top-level ABR include.
- * Aggregates all public ABR headers into a single entry point.
+ * Canonical ABI for the Arbitrary Bit Read system.
+ *
+ * This file defines:
+ *   - plugin struct
+ *   - plugin result struct
+ *   - plugin factory signature
+ *   - runtime context
+ *   - execution signature
+ *   - destroy signature
+ *   - ABI-stable types for all subsystems
  *
  * Phoenix Annotation (scflder):
- *   f = front of ABR entry
- *   s = second / step in subsystem selection
- *   l = last stage before execution
- *   c = clock domain (context clock may advance)
- *   d = degree domain (window width may change)
- *   e = eternal set (invariants preserved)
- *   r = residue domain (last result stored)
+ *   f = front (ABI input)
+ *   s = second (ABI resolution)
+ *   l = last (ABI output)
+ *   d = degree domain (ABI width)
+ *   r = residue domain (ABI propagation)
  */
 
 #ifndef ABR_H
 #define ABR_H
 
-/* Core ABI */
-#include "abr_core.h"
+#include <stdint.h>
 
-/* Execution ABI */
-#include "abr_exec.h"
+/* Forward declarations */
+struct abr_context;
+struct abr_plugin;
 
-/* Dispatch ABI */
-#include "abr_dispatch.h"
+/* Plugin result */
+typedef struct abr_plugin_result
+{
+    uint64_t window;
+    uint64_t residue;
 
-/* Interface ABI */
-#include "abr_interface.h"
+} abr_plugin_result;
 
-/* CLI ABI */
-#include "abr_cli.h"
-#include "abr_cli_commands.h"
+/* Plugin function signatures */
+typedef void (*abr_plugin_create_fn)(struct abr_plugin*);
+typedef abr_plugin_result (*abr_plugin_execute_fn)(
+    struct abr_plugin*,
+    struct abr_context*
+);
+typedef void (*abr_plugin_destroy_fn)(struct abr_plugin*);
 
-/* Plugin ABI */
-#include "abr_plugin.h"
+/* Plugin struct */
+typedef struct abr_plugin
+{
+    const char* name;
 
-/* Flags, Context, WindowSet */
-#include "abr_flags.h"
-#include "abr_context.h"
-#include "windowset.h"
+    abr_plugin_create_fn  create;
+    abr_plugin_execute_fn execute;
+    abr_plugin_destroy_fn destroy;
 
-/* Synthetic metadata */
-#include "abr_synth.h"
+    void* data;
 
-/* Minimal JSON emitter */
-#include "abr_json_min.h"
+} abr_plugin;
+
+/* Plugin factory */
+typedef abr_plugin* (*abr_plugin_factory)(void);
+
+/* Runtime context */
+typedef struct abr_context
+{
+    uint64_t window;
+    uint64_t residue;
+
+    const char* plugin_name;
+    int status_code;
+    const char* error_message;
+
+    uint32_t flags;
+
+} abr_context;
 
 #endif /* ABR_H */
 
