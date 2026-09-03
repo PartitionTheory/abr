@@ -1,38 +1,47 @@
 /*
  * abr_context.h — ABR v0.5
  *
- * Defines the ABR runtime context structure.
- * The context stores global runtime state used by the VM, plugin registry,
- * dispatch layer, and execution engine.
+ * Core execution context for ABR.
+ * Holds window state, residue state, plugin registry pointer,
+ * and synthetic VM trace accumulator.
  *
  * Phoenix Annotation (scflder):
- *   f = front of context lifecycle (creation)
- *   s = second / step after core entry
- *   l = last stage during shutdown
- *   c = clock domain (runtime progression)
- *   d = degree domain (unary expansion)
- *   e = eternal set (persistent invariants)
- *   r = residue domain (post-operation remainder)
+ *   f = front (initial window)
+ *   s = second (step through execution)
+ *   l = last (terminal window)
+ *   d = degree domain (window width)
+ *   r = residue domain (last result)
  */
 
 #ifndef ABR_CONTEXT_H
 #define ABR_CONTEXT_H
 
+#include <stdint.h>
 #include <stddef.h>
+#include "abr_synth_vm_trace.h"
 
-/* ABR runtime context structure. */
+/* ABR execution context (v0.5 canonical). */
 typedef struct abr_context {
-    size_t clock;     /* c — runtime clock */
-    size_t degree;    /* d — unary degree */
-    void*  eternal;   /* e — eternal-set invariants */
-    void*  residue;   /* r — post-operation remainder */
-} abr_context_t;
+    uint64_t window;          /* current 64‑bit window (f,s,l) */
+    uint64_t residue;         /* residue domain (r) */
+    size_t   width;           /* window width (d) */
 
-/* Create a new context (f). */
-abr_context_t* abr_context_create(void);
+    /* Synthetic VM trace accumulator. */
+    abr_synth_vm_trace trace;
 
-/* Destroy a context (l). */
-void abr_context_destroy(abr_context_t* ctx);
+    /* Plugin registry pointer (opaque). */
+    void* plugin_registry;
+} abr_context;
+
+/* Initialize context with a window and width. */
+void abr_context_init(
+    abr_context* ctx,
+    uint64_t window,
+    size_t width
+);
+
+/* Reset context residue and trace. */
+void abr_context_reset(abr_context* ctx);
 
 #endif /* ABR_CONTEXT_H */
 
