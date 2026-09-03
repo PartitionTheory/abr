@@ -1340,3 +1340,460 @@ Gradient‑Safe Operator
 op:gradient(|2|3|) → |3|4|
 
 Completion and gradient behavior is governed by CGE.
+
+## 45. Structural JSON Examples
+
+Plugins in ABR v0.5 often return JSON‑encoded mathematical structures.  
+These structures are reversible, domain‑safe, and fully synthetic.
+
+The first example demonstrates window mathematics:
+
+- symbolic ↔ numeric mapping  
+- permutation domain  
+- combination domain  
+- structural invariants  
+- reversible window identity
+
+This JSON block is produced by the `window_structural` plugin.
+
+```json
+{
+  "window_left": 2,
+  "window_right": 3,
+  "symbol_map": {
+    "a": 1,
+    "b": 2,
+    "c": 3
+  },
+  "permutations": 6,
+  "combinations": 3,
+  "structural_identity": true
+}
+```
+
+The second example demonstrates domain mathematics:
+
+- domain identity  
+- reversible domain transitions  
+- coherence gradients  
+- synthetic operator metadata  
+- temporal stability  
+
+This JSON block is produced by the reversible domain engine (RDE) and coherence engine (ICE).
+
+```json
+{
+  "domain": "alpha",
+  "identity_transition": true,
+  "coherence_gradient": 0.12,
+  "operator": {
+    "name": "coherence",
+    "reversible": true,
+    "window_safe": true,
+    "domain_safe": true
+  }
+}
+```
+
+These JSON structures demonstrate how ABR v0.5 expresses mathematics:
+
+- structurally  
+- reversibly  
+- coherently  
+- without computation  
+- without algorithms  
+- purely through Phoenix Synthetic Mathematics
+
+Chunk 9 completes the JSON demonstration section of the README.
+
+## 46. Structural Mathematics and Plugin Interoperability
+
+ABR v0.5 supports two fully independent mathematical subsystems:
+
+1. Window Mathematics (Partition Theory windows)
+2. BigInt Mathematics (numeric structural lists)
+
+These subsystems are reversible, coherent, and mathematically pure.  
+They do not depend on each other — but they can interact when a plugin chooses to.
+
+### Window Plugins
+Operate on:
+- window boundaries
+- grouped bit structures
+- symbolic ↔ numeric window equivalence
+- permutation and combination domains
+- reversible window transitions
+
+Examples:
+- branch_merge_split
+- invariant_explorer
+- window_structural
+
+### BigInt Plugins
+Operate on:
+- structural number lists
+- reversible numeric transforms
+- sequence analysis
+- entropy analysis
+- numeric pattern detection
+
+Examples:
+- reverse
+- bitcount
+- rotate
+- mask
+
+### Interoperability Model
+Window plugins and BigInt plugins are independent.  
+A plugin may choose to:
+- operate purely on windows  
+- operate purely on BigInts  
+- convert windows → BigInts  
+- convert BigInts → windows  
+- or ignore the other subsystem entirely
+
+This model ensures:
+- mathematical purity  
+- reversible behavior  
+- plugin autonomy  
+- structural clarity  
+- future extensibility  
+
+---
+
+## 47. Plugin Metadata Model
+
+All plugins in ABR v0.5 may declare metadata describing their mathematical behavior.
+
+Metadata fields include:
+- name  
+- version  
+- description  
+- domain safety  
+- window safety  
+- operator safety  
+- reversibility guarantees  
+
+Metadata is optional but recommended for:
+- documentation  
+- plugin discovery  
+- runtime introspection  
+- structural analysis  
+
+---
+
+## 48. Plugin Registry Model
+
+ABR v0.5 supports automatic plugin registration.
+
+When a plugin is compiled:
+- it registers itself with the plugin registry  
+- declares its mathematical domain  
+- declares its operator set  
+- declares its reversibility guarantees  
+
+This ensures:
+- consistent plugin loading  
+- deterministic plugin ordering  
+- reversible plugin execution  
+- coherent mathematical behavior  
+
+---
+
+## 49. Deterministic Plugin Execution
+
+Plugins execute deterministically through SMIE.
+
+Execution steps:
+1. Plugin declares intent  
+2. SMIE routes intent to correct engines  
+3. Engines perform reversible mathematical transformations  
+4. Plugin returns structural output  
+5. Output is validated for reversibility  
+
+This ensures:
+- no side effects  
+- no irreversible behavior  
+- no computational semantics  
+- pure synthetic mathematics  
+
+---
+
+## 50. Structural Mathematics Roadmap
+
+ABR v0.5 establishes the foundation for future mathematical systems:
+
+- reversible domain calculus  
+- synthetic operator algebra  
+- window combinatorics  
+- gradient mathematics  
+- completion mathematics  
+- identity coherence mathematics  
+- multi‑domain fusion and separation  
+- structural number theory  
+- reversible numeric transforms  
+
+These systems will be expanded in future versions of ABR.
+
+Chunk 10 completes the plugin interoperability and metadata section of the README.
+
+## 51. Structural Mathematics Visualisation Layer
+
+ABR v0.5 includes a visualisation layer designed to reveal the internal structure of synthetic mathematics.  
+This layer is optional, reversible, and purely pedagogical — it does not affect runtime behavior.
+
+### Purpose of the Visualisation Layer
+
+The visualisation layer helps mathematicians and researchers see:
+
+- unary geometry  
+- window expansion  
+- domain casting  
+- reversible transitions  
+- combinatorial structure  
+- temporal propagation  
+- structural invariants  
+
+These visualisations make synthetic mathematics intuitive and accessible.
+
+---
+
+## 52. Unary Geometry Visualisation
+
+Unary geometry is the foundation of structural mathematics.
+
+Example:
+
+Input:
+
+|3|4|
+
+Unary expansion:
+
+000
+0000
+
+This reveals:
+
+- cardinality  
+- partition length  
+- structural identity  
+- combinatorial meaning  
+
+Unary geometry is used throughout synthetic mathematics.
+
+---
+
+## 53. Window Expansion Visualisation
+
+Window expansion shows how symbolic or numeric windows map to unary structure.
+
+Example:
+
+Input:
+
+|2|2|
+
+Expansion:
+
+00
+00
+
+This reveals:
+
+- window boundaries  
+- window equivalence  
+- reversible window transitions  
+- symbolic ↔ numeric mapping  
+
+Window expansion is used by SWE and SMIE.
+
+---
+
+## 54. Domain Casting Visualisation
+
+Domain casting shows how N‑domains transform under reversible rules.
+
+Example:
+
+Input:
+
+N-domain A → N-domain B
+
+Visualisation shows:
+
+- collapse  
+- expansion  
+- reversible mapping  
+- structural invariants  
+- entropy changes  
+- temporal behavior  
+
+Domain casting is governed by RDE.
+
+---
+
+## 55. Temporal Sweep Visualisation
+
+Temporal sweep shows how temporal values propagate across partitions.
+
+Example:
+
+Clock:
+
+c = 12
+
+Degree:
+
+d = 3
+
+Step:
+
+s = 4
+
+Residue:
+
+r = 1
+
+Sweep:
+
+left block uses s
+right block uses r
+
+
+This reveals:
+
+- temporal propagation  
+- reversible temporal behavior  
+- structural stability  
+
+Temporal sweep is governed by SMIE.
+
+---
+
+## 56. Interactive Mathematical Plugins
+
+ABR v0.5 includes interactive plugins that demonstrate:
+
+- unary geometry  
+- window expansion  
+- domain casting  
+- temporal sweep  
+- reversible transitions  
+- structural invariants  
+
+These plugins are educational tools for exploring synthetic mathematics.
+
+---
+
+## 57. Visualisation Safety Model
+
+All visualisations are:
+
+- reversible  
+- structural  
+- non-computational  
+- mathematically pure  
+- Phoenix-aligned  
+
+Visualisations never alter runtime behavior.
+
+Chunk 11 completes the visualisation layer section of the README.
+
+## 58. Example ABR v0.5 Session (Synthetic)
+
+This section shows a **complete synthetic session** using ABR v0.5, expressed structurally.  
+It demonstrates:
+
+- window input  
+- domain selection  
+- operator routing  
+- reversible execution  
+- JSON structural output  
+
+The example is intentionally minimal and Phoenix‑aligned.
+
+### Session Overview
+
+1. EF provides a window input  
+2. ABR selects the appropriate mathematical engines  
+3. Engines perform reversible transformations  
+4. Output is returned as JSON structural data  
+
+Input window:
+
+|2|3|
+
+
+Selected domain:
+- `domain:alpha`
+
+Selected operator:
+- `op:coherence`
+
+The resulting JSON describes the structural state of the system.
+```json
+{
+  "session_id": "example-abr-v0.5",
+  "input": {
+    "window": "|2|3|",
+    "domain": "alpha",
+    "operator": "coherence"
+  },
+  "engines": {
+    "SNE": true,
+    "SMIE": true,
+    "SWE": true,
+    "RDE": true,
+    "SOE": true,
+    "ICE": true,
+    "CGE": true
+  },
+  "output": {
+    "structural_number": 6,
+    "permutations": 6,
+    "combinations": 3,
+    "identity_preserved": true,
+    "coherence_gradient": 0.12,
+    "reversible": true
+  }
+}
+```
+
+## 59. README Completion and Future Directions
+
+This example session demonstrates how ABR v0.5:
+
+- accepts structural input  
+- routes through Phoenix‑aligned engines  
+- produces reversible, structural JSON output  
+- avoids computation and algorithms entirely  
+
+ABR v0.5 is a **mathematical runtime**, not a traditional program.  
+It exists to express Phoenix Synthetic Mathematics in a precise, reversible, and inspectable form.
+
+Future directions include:
+
+- extended window mathematics  
+- richer domain fusion and separation  
+- advanced gradient and completion models  
+- deeper identity and coherence structures  
+- expanded plugin ecosystems for research and teaching  
+
+---
+
+### 60. Status of This Document
+
+This README describes:
+
+- ABR v0.5 architecture  
+- Phoenix engine alignment  
+- plugin systems and categories  
+- structural mathematics models  
+- visualisation and educational layers  
+- example synthetic session
+
+EF now holds the **canonical ABR v0.5 README** for this epoch.
+
+Chunk 12 completes the README.
+
