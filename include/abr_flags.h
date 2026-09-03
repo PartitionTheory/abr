@@ -1,17 +1,17 @@
 /*
  * abr_flags.h — ABR v0.5
  *
- * Defines the unified ABR flags object used across core, sdk,
- * plugins, pipeline, system, and VM.
+ * Flags for ABR execution.
+ * Minimal in v0.5; expanded in v0.6+.
  *
  * Phoenix Annotation (scflder):
- *   f = front of flag creation
- *   s = second / step in flag mutation
- *   l = last stage during destruction
- *   c = clock domain (flags may influence clock behavior)
- *   d = degree domain (flags may influence unary degree)
- *   e = eternal set (flags may preserve invariants)
- *   r = residue domain (flags may store last result)
+ *   f = front of flag entry
+ *   s = second / step in flag selection
+ *   l = last stage before execution
+ *   c = clock domain (context clock may advance)
+ *   d = degree domain (window width may change)
+ *   e = eternal set (invariants preserved)
+ *   r = residue domain (last result stored)
  */
 
 #ifndef ABR_FLAGS_H
@@ -20,27 +20,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* Unified ABR flags */
-typedef struct abr_flags {
-    uint32_t mode;      /* execution mode */
-    uint32_t options;   /* bitmask of options */
-    uint32_t reserved;  /* reserved for future v0.6 expansion */
+/* Minimal flag object for v0.5. */
+typedef struct abr_flags_t {
+    uint32_t mode;     /* plugin-specific mode */
+    uint32_t options;  /* plugin-specific options */
 } abr_flags_t;
 
 /* Initialize flags (f). */
 static inline void abr_flags_init(abr_flags_t* fl)
 {
     if (!fl) return;
-    fl->mode     = 0;
-    fl->options  = 0;
-    fl->reserved = 0;
-}
-
-/* Destroy flags (l). */
-static inline void abr_flags_destroy(abr_flags_t* fl)
-{
-    (void)fl;
-    /* v0.5: no dynamic fields */
+    fl->mode    = 0;
+    fl->options = 0;
 }
 
 #endif /* ABR_FLAGS_H */
