@@ -1,87 +1,68 @@
 /*
  * abr_core.c — ABR v0.5
  *
- * Core runtime coordinator for the ABR system.
- * This file initializes the runtime, binds the VM, dispatch layer,
- * operator set, and plugin registry into a coherent execution environment.
+ * Central core engine for ABR.
+ * Provides unified execution semantics over:
+ *   - VM layer
+ *   - execution layer
+ *   - dispatch layer
+ *   - synthetic VM trace
  *
  * Phoenix Annotation (scflder):
- *   f = front of runtime initialization sequence
- *   s = second / step in the boot chain
- *   l = last stage before VM activation
- *   c = clock domain for runtime progression
- *   d = degree expansion for unary operations
- *   e = eternal set (persistent invariants)
- *   r = residue propagation after operator execution
- *
- * These variables describe structural behaviour, not code symbols.
+ *   f = front (initial window)
+ *   s = second (step through execution)
+ *   l = last (terminal window)
+ *   d = degree domain (window width)
+ *   r = residue domain (last result)
  */
 
 #include "abr_core.h"
-#include "abr_context.h"
-#include "abr_dispatch.h"
-#include "abr_exec.h"
-#include "abr_plugin.h"
 #include "abr_vm.h"
+#include "abr_exec.h"
 
-#include <stdlib.h>
-
-/* -------------------------------------------------------------------------
- * Core State
- * ------------------------------------------------------------------------- */
-
-static abr_context_t* g_ctx = NULL;
-
-/* -------------------------------------------------------------------------
- * abr_core_init
- *
- * Initializes the ABR runtime.
- * This is the 'f' (front) of the boot sequence.
- * It establishes the context, loads plugins, and prepares the VM.
- * ------------------------------------------------------------------------- */
-int abr_core_init(void)
+/* Initialize core engine with initial window and width. */
+void abr_core_init(
+    abr_core* core,
+    uint64_t window,
+    size_t width
+)
 {
-    g_ctx = abr_context_create();
-    if (!g_ctx)
-        return -1;
-
-    /* s = second step: load plugins */
-    if (abr_plugin_registry_init(g_ctx) != 0)
-        return -1;
-
-    /* l = last step before VM activation */
-    if (abr_vm_init(g_ctx) != 0)
-        return -1;
-
-    return 0;
+    if (!core) return;
+    abr_vm_init(&core->vm, window, width);
 }
 
-/* -------------------------------------------------------------------------
- * abr_core_shutdown
- *
- * Shuts down the ABR runtime.
- * Residue 'r' is cleared, eternal-set 'e' invariants are preserved.
- * ------------------------------------------------------------------------- */
-void abr_core_shutdown(void)
+/* Execute extraction through core engine. */
+uint64_t abr_core_extract(
+    abr_core* core,
+    const uint8_t* src,
+    size_t src_size,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    if (!g_ctx)
-        return;
-
-    abr_vm_shutdown(g_ctx);
-    abr_plugin_registry_shutdown(g_ctx);
-    abr_context_destroy(g_ctx);
-
-    g_ctx = NULL;
+    if (!core || !src) return 0;
+    return abr_vm_extract(&core->vm, src, src_size, bit_offset, bit_length);
 }
 
-/* -------------------------------------------------------------------------
- * abr_core_context
- *
- * Returns the global context.
- * This exposes the clock 'c' and degree 'd' domains indirectly.
- * ------------------------------------------------------------------------- */
-abr_context_t* abr_core_context(void)
+/* Execute slicing through core engine. */
+uint64_t abr_core_slice(
+    abr_core* core,
+    uint64_t window,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    return g_ctx;
+    if (!core) return 0;
+    return abr_vm_slice(&core->vm, window, bit_offset, bit_length);
+}
+
+/* Execute plugin through core engine. */
+void abr_core_plugin(
+    abr_core* core,
+    const char* plugin_name
+)
+{
+    if (!core || !plugin_name) return;
+    abr_vm_plugin(&core->vm, plugin_name);
 }
 
