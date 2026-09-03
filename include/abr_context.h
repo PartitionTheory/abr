@@ -1,17 +1,17 @@
 /*
  * abr_context.h — ABR v0.5
  *
- * Defines the unified ABR context object used across core, sdk,
- * plugins, pipeline, system, and VM.
+ * Execution context for ABR.
+ * Minimal in v0.5; expanded in v0.6+.
  *
  * Phoenix Annotation (scflder):
- *   f = front of context creation
- *   s = second / step in context mutation
- *   l = last stage during destruction
- *   c = clock domain
- *   d = degree domain
- *   e = eternal set
- *   r = residue domain
+ *   f = front of context entry
+ *   s = second / step in context update
+ *   l = last stage before returning result
+ *   c = clock domain (context clock may advance)
+ *   d = degree domain (window width may change)
+ *   e = eternal set (invariants preserved)
+ *   r = residue domain (last result stored)
  */
 
 #ifndef ABR_CONTEXT_H
@@ -20,29 +20,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* Unified ABR context */
-typedef struct abr_context {
-    size_t clock;     /* c domain */
-    size_t degree;    /* d domain */
-    void*  eternal;   /* e domain */
-    void*  residue;   /* r domain */
+/* Minimal context object for v0.5. */
+typedef struct abr_context_t {
+    uint64_t clock;     /* execution clock (c) */
+    uint64_t residue;   /* last result (r) */
 } abr_context_t;
 
 /* Initialize context (f). */
 static inline void abr_context_init(abr_context_t* ctx)
 {
     if (!ctx) return;
-    ctx->clock  = 0;
-    ctx->degree = 0;
-    ctx->eternal = NULL;
-    ctx->residue = NULL;
-}
-
-/* Destroy context (l). */
-static inline void abr_context_destroy(abr_context_t* ctx)
-{
-    (void)ctx;
-    /* v0.5: no dynamic fields */
+    ctx->clock   = 0;
+    ctx->residue = 0;
 }
 
 #endif /* ABR_CONTEXT_H */
