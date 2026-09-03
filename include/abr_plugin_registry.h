@@ -1,34 +1,33 @@
 /*
  * abr_plugin_registry.h — ABR v0.5
  *
- * Public interface for the ABR plugin registry.
- * The registry stores all plugins compiled into the system and provides
- * lookup functions for the dispatch layer and VM.
+ * Plugin registry for ABR.
+ * Provides lookup and enumeration of built-in plugins.
  *
  * Phoenix Annotation (scflder):
- *   f = front of registry initialization
- *   s = second / step in plugin registration
- *   l = last stage during shutdown
- *   c = clock domain (plugin timing metadata)
- *   d = degree domain (plugin unary metadata)
- *   e = eternal set (plugin invariants)
- *   r = residue domain (last lookup result)
+ *   f = front of registry entry
+ *   s = second / step in plugin selection
+ *   l = last stage before returning plugin
+ *   c = clock domain (context clock may advance)
+ *   d = degree domain (window width may change)
+ *   e = eternal set (invariants preserved)
+ *   r = residue domain (last result stored)
  */
 
 #ifndef ABR_PLUGIN_REGISTRY_H
 #define ABR_PLUGIN_REGISTRY_H
 
 #include "abr_plugin.h"
-#include "abr_context.h"
 
-/* Initialize the plugin registry (f). */
-int abr_plugin_registry_init(abr_context_t* ctx);
+/* Built-in plugin table (v0.5 static). */
+extern const abr_plugin* abr_builtin_plugins[];
+extern const size_t abr_builtin_plugin_count;
 
-/* Shut down the plugin registry (l). */
-void abr_plugin_registry_shutdown(abr_context_t* ctx);
+/* Lookup by name (f). */
+const abr_plugin* abr_plugin_registry_by_name(const char* name);
 
-/* Lookup a plugin by name (s → r). */
-abr_plugin_t* abr_plugin_registry_get(const char* name);
+/* Lookup by index (s). */
+const abr_plugin* abr_plugin_registry_by_index(size_t idx);
 
 #endif /* ABR_PLUGIN_REGISTRY_H */
 
