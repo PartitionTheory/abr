@@ -10,7 +10,7 @@ It in now way negates my work, or the importance of Partition Theory.
 
 ABR v0.5 — Canonical Directory Layout
 This is the official, deterministic directory structure for ABR v0.5.
-
+```
 abr/
 ├── CMakeLists.txt
 ├── README.md
@@ -92,10 +92,10 @@ abr/
     ├── test_plugins.c
     ├── test_pipeline.c
     ├── test_vm.c
-
+```
 ABR v0.5 — Release Packaging
 The canonical release package contains:
-
+```
 abr-v0.5/
 ├── src/        # all .c files
 ├── include/    # all .h files
@@ -107,7 +107,7 @@ abr-v0.5/
     ├── example_cli.sh
     ├── example_vm_session.txt
     ├── example_pipeline.txt
-
+```
 ## 1. Introduction
 
 ABR v0.5 is the world’s first synthetic mathematics engine, built from a complete zero‑state using the Phoenix Epoch framework (Epochs 1–24). This version abandons computational virtual‑machine semantics and replaces them with pure mathematical execution, where all operations, domains, windows, gradients, and identities are governed by reversible synthetic mathematics.
