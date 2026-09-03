@@ -1,47 +1,100 @@
 /*
  * abr_exec.c — ABR v0.5
  *
- * Execution coordinator for the ABR runtime.
- * This module provides the glue between dispatch and the VM, ensuring that
- * plugin execution follows the correct ABI and structural rules.
+ * Core execution layer for ABR.
+ * Provides the stable execution semantics for:
+ *   - extraction
+ *   - slicing
+ *   - plugin invocation
+ *   - synthetic VM trace emission
  *
  * Phoenix Annotation (scflder):
- *   f = front of execution entry
- *   s = second / step in plugin ABI selection
- *   l = last stage before VM execution
- *   c = clock domain incremented on execution
- *   d = degree domain may be adjusted by plugin metadata
- *   e = eternal set preserved across execution
- *   r = residue returned after VM execution
+ *   f = front (initial window)
+ *   s = second (step through execution)
+ *   l = last (terminal window)
+ *   d = degree domain (window width)
+ *   r = residue domain (last result)
  */
 
 #include "abr_exec.h"
-#include "abr_core.h"
-#include "abr_vm.h"
-#include "abr_plugin.h"
+#include "abr_dispatch.h"
+#include "abr_synth_vm_trace.h"
+#include <string.h>
 
-/* -------------------------------------------------------------------------
- * abr_exec_plugin
- *
- * Executes a plugin using the correct ABI.
- * This is the 'f' (front) of the execution chain.
- * ------------------------------------------------------------------------- */
-int abr_exec_plugin(abr_plugin_t* plugin)
+/* Execute extraction from a byte buffer into the context window. */
+uint64_t abr_exec_extract(
+    abr_context* ctx,
+    const uint8_t* src,
+    size_t src_size,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    abr_context_t* ctx = abr_core_context();
-    if (!ctx || !plugin)
-        return -1;
+    if (!ctx || !src) return 0;
 
-    /* s = second / step: choose ABI path */
-    int status = 0;
+    uint64_t result = abr_dispatch_extract(
+        ctx,
+        src,
+        src_size,
+        bit_offset,
+        bit_length
+    );
 
-    /* Increment clock domain (c). */
-    ctx->clock++;
+    /* Emit trace event. */
+    abr_synth_vm_trace_event ev = {
+        .plugin_name = "exec_extract",
+        .clock       = 0,
+        .residue     = ctx->residue
+    };
+    abr_synth_vm_trace_append(&ctx->trace, &ev);
 
-    /* l = last stage: handoff to VM */
-    status = abr_vm_execute(plugin, ctx);
+    return result;
+}
 
-    /* r = residue domain updated by VM */
-    return status;
+/* Execute slicing of a 64-bit window into a sub-window. */
+uint64_t abr_exec_slice(
+    abr_context* ctx,
+    uint64_t window,
+    size_t bit_offset,
+    size_t bit_length
+)
+{
+    if (!ctx) return 0;
+
+    uint64_t result = abr_dispatch_slice(
+        ctx,
+        window,
+        bit_offset,
+        bit_length
+    );
+
+    /* Emit trace event. */
+    abr_synth_vm_trace_event ev = {
+        .plugin_name = "exec_slice",
+        .clock       = 0,
+        .residue     = ctx->residue
+    };
+    abr_synth_vm_trace_append(&ctx->trace, &ev);
+
+    return result;
+}
+
+/* Execute a plugin by name. */
+void abr_exec_plugin(
+    abr_context* ctx,
+    const char* plugin_name
+)
+{
+    if (!ctx || !plugin_name) return;
+
+    abr_dispatch_plugin(ctx, plugin_name);
+
+    /* Emit trace event. */
+    abr_synth_vm_trace_event ev = {
+        .plugin_name = plugin_name,
+        .clock       = 0,
+        .residue     = ctx->residue
+    };
+    abr_synth_vm_trace_append(&ctx->trace, &ev);
 }
 
