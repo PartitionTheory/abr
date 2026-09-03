@@ -1,53 +1,32 @@
 /*
  * core_extract.c — ABR v0.5
  *
- * Converts raw bytes into a WindowSet.
- * This is the entry point of the ABR pipeline.
+ * Implementation of core window extraction utilities.
+ * Provides safe, bounded extraction of bit windows from streams and buffers.
  *
  * Phoenix Annotation (scflder):
- *   f = front of byte → window extraction
- *   s = second / step in bit expansion
- *   l = last stage before WindowSet assembly
- *   c = clock domain (initial increment)
- *   d = degree domain (window width = unary degree)
- *   e = eternal set (initial invariants)
- *   r = residue domain (unused for extraction)
+ *   f = front of extraction (start index)
+ *   s = second / step through bits
+ *   l = last bit of window
+ *   d = degree (window width)
+ *   r = residue (remaining bits after window)
  */
 
-#include "windowset.h"
-#include <stdlib.h>
-#include <string.h>
+#include "core_extract.h"
+#include <stddef.h>
+#include <stdint.h>
 
-/* -------------------------------------------------------------------------
- * core_extract
- *
- * Converts a byte array into a single window containing all bits.
- * This is the 'f → s → l' sequence.
- * ------------------------------------------------------------------------- */
-WindowSet core_extract(const uint8_t* bytes, size_t count)
+/* Extract a window of bits from a byte buffer into a 64-bit value.
+ * This function simply forwards to the inline implementation in the header.
+ * It exists to provide a stable symbol for linking and ABI consistency.
+ */
+uint64_t abr_core_extract_bits_fn(
+    const uint8_t* src,
+    size_t src_size,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    WindowSet ws;
-    ws.count = 1;
-    ws.windows = calloc(1, sizeof(Window));
-
-    Window* w = &ws.windows[0];
-
-    /* f = front: compute bit length */
-    w->length = count * 8;
-    w->width  = w->length;
-
-    /* s = second: expand bytes → bits */
-    w->bits = malloc(w->length);
-
-    size_t k = 0;
-    for (size_t i = 0; i < count; i++) {
-        uint8_t b = bytes[i];
-        for (int bit = 7; bit >= 0; bit--) {
-            w->bits[k++] = (b >> bit) & 1;
-        }
-    }
-
-    /* l = last: WindowSet assembled */
-    return ws;
+    return abr_core_extract_bits(src, src_size, bit_offset, bit_length);
 }
 
