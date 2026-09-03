@@ -954,7 +954,7 @@ Examples:
   "window": "|2|3|",
   "operator": "identity"
 }
-
+```
 All input is interpreted structurally, not computationally.
 
 33. Structural Output Model
@@ -1284,7 +1284,7 @@ Example metadata:
   "window_safe": true,
   "domain_safe": true
 }
-
+```
 Metadata fields include:
 
 operator identity
