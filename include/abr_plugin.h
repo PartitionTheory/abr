@@ -1,72 +1,68 @@
 /*
  * abr_plugin.h — ABR v0.5
  *
- * Defines the ABR plugin ABI.
- * Plugins are the transformation units of ABR, operating on either
- * WindowSet or BigIntList depending on plugin type.
+ * Unified plugin ABI for all plugin families:
+ * - Window plugins
+ * - BigInt plugins
+ * - Bridge plugins
+ * - Future VM plugins
  *
  * Phoenix Annotation (scflder):
- *   f = front of plugin entry
- *   s = second / step in ABI selection
- *   l = last stage before VM handoff
- *   c = clock domain exposed through context
- *   d = degree domain (unary expansion)
- *   e = eternal set (persistent invariants)
- *   r = residue domain (post-operation remainder)
+ *   f = front of plugin creation
+ *   s = second / step in plugin execution
+ *   l = last stage during destruction
+ *   c = clock domain (plugin may mutate context clock)
+ *   d = degree domain (plugin may mutate unary degree)
+ *   e = eternal set (plugin may preserve invariants)
+ *   r = residue domain (plugin may store last result)
  */
 
 #ifndef ABR_PLUGIN_H
 #define ABR_PLUGIN_H
 
-#include <stddef.h>
-#include <stdint.h>
 #include "abr_context.h"
+#include "abr_flags.h"
+#include "windowset.h"
 
-/* Forward declarations */
-struct abr_plugin;
-
-/* Plugin type classification */
+/* Plugin type */
 typedef enum {
     ABR_PLUGIN_WINDOW,
     ABR_PLUGIN_BIGINT,
     ABR_PLUGIN_BRIDGE
 } abr_plugin_type;
 
-/* Plugin cost class (for VM scheduling) */
-typedef enum {
-    ABR_COST_LIGHT,
-    ABR_COST_MEDIUM,
-    ABR_COST_HEAVY
-} abr_cost_class;
-
-/* Plugin ABI */
+/* Unified plugin metadata */
 typedef struct abr_plugin {
     const char* name;
+    const char* version;
+    const char* description;
+
     abr_plugin_type type;
-    abr_cost_class cost;
 
-    int is_branching;
-    int is_reversible;
+    /* Universal flags */
+    abr_flags_t flags;
 
-    /* Non-branching path */
-    void (*process_set)(
-        struct abr_plugin* p,
-        void* in_set,
-        void* flags,
+    /* Window plugin entry point */
+    WindowSet (*process_set)(
+        const WindowSet* in,
+        const abr_flags_t* fl,
         abr_context_t* ctx
     );
 
-    /* Branching path */
-    void (*process_branch)(
-        struct abr_plugin* p,
-        void* in_set,
-        void* flags,
+    /* Branching window plugin entry point */
+    WindowSet* (*process_branch)(
+        const WindowSet* in,
+        const abr_flags_t* fl,
         abr_context_t* ctx,
         size_t* out_count
     );
 
-    /* Optional plugin state */
-    void* state;
+    /* BigInt plugin entry point (future) */
+    void* (*process_list)(
+        const void* in,
+        const abr_flags_t* fl,
+        abr_context_t* ctx
+    );
 
 } abr_plugin;
 
