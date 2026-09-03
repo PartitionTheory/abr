@@ -1,74 +1,68 @@
 /*
  * abr_vm.c — ABR v0.5
  *
- * Virtual Machine execution layer for ABR.
- * Responsible for executing plugin operations in a controlled,
- * deterministic environment. The VM enforces ABI rules and ensures
- * that plugin execution is structurally safe.
+ * Minimal VM layer for ABR.
+ * Provides a lightweight execution wrapper around:
+ *   - context
+ *   - dispatch
+ *   - execution layer
+ *   - synthetic VM trace
  *
  * Phoenix Annotation (scflder):
- *   f = front of VM entry
- *   s = second / step in plugin execution
- *   l = last stage before returning residue
- *   c = clock domain incremented on execution
- *   d = degree domain may be adjusted by plugin metadata
- *   e = eternal set preserved across VM operations
- *   r = residue domain produced after execution
+ *   f = front (initial window)
+ *   s = second (step through execution)
+ *   l = last (terminal window)
+ *   d = degree domain (window width)
+ *   r = residue domain (last result)
  */
 
 #include "abr_vm.h"
-#include "abr_core.h"
-#include "abr_plugin.h"
+#include "abr_exec.h"
+#include "abr_context.h"
 
-/* -------------------------------------------------------------------------
- * abr_vm_init
- *
- * Initializes the VM.
- * This is the 'f' (front) of the VM lifecycle.
- * ------------------------------------------------------------------------- */
-int abr_vm_init(abr_context_t* ctx)
+/* Initialize VM with initial window and width. */
+void abr_vm_init(
+    abr_vm* vm,
+    uint64_t window,
+    size_t width
+)
 {
-    (void)ctx;
-    return 0;
+    if (!vm) return;
+    abr_context_init(&vm->ctx, window, width);
 }
 
-/* -------------------------------------------------------------------------
- * abr_vm_shutdown
- *
- * Shuts down the VM.
- * This is the 'l' (last) stage of the VM lifecycle.
- * ------------------------------------------------------------------------- */
-void abr_vm_shutdown(abr_context_t* ctx)
+/* Execute extraction through VM. */
+uint64_t abr_vm_extract(
+    abr_vm* vm,
+    const uint8_t* src,
+    size_t src_size,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    (void)ctx;
+    if (!vm || !src) return 0;
+    return abr_exec_extract(&vm->ctx, src, src_size, bit_offset, bit_length);
 }
 
-/* -------------------------------------------------------------------------
- * abr_vm_execute
- *
- * Executes a plugin inside the VM.
- * This is the 'f' (front) of the execution chain.
- * ------------------------------------------------------------------------- */
-int abr_vm_execute(abr_plugin_t* plugin, abr_context_t* ctx)
+/* Execute slicing through VM. */
+uint64_t abr_vm_slice(
+    abr_vm* vm,
+    uint64_t window,
+    size_t bit_offset,
+    size_t bit_length
+)
 {
-    if (!plugin || !ctx)
-        return -1;
+    if (!vm) return 0;
+    return abr_exec_slice(&vm->ctx, window, bit_offset, bit_length);
+}
 
-    /* s = second / step: choose execution path */
-    int status = 0;
-
-    /* Increment clock domain (c). */
-    ctx->clock++;
-
-    /* Execute plugin using correct ABI. */
-    if (plugin->is_branching) {
-        size_t out_count = 0;
-        plugin->process_branch(plugin, NULL, NULL, ctx, &out_count);
-    } else {
-        plugin->process_set(plugin, NULL, NULL, ctx);
-    }
-
-    /* r = residue domain updated by plugin */
-    return status;
+/* Execute plugin through VM. */
+void abr_vm_plugin(
+    abr_vm* vm,
+    const char* plugin_name
+)
+{
+    if (!vm || !plugin_name) return;
+    abr_exec_plugin(&vm->ctx, plugin_name);
 }
 
