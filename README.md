@@ -6,6 +6,9 @@ See tests/abr_math_v4_sequence.md for the full synthetic manifold test sequence 
 
 ### ➜  [ABR math_v4 synthetic sequence tests](tests/abr_math_v4_sequence.md)
 
+### By EFS [Full math_v4 sequence (historic first execution)](tests/math_v4/abr_math_v4_sequence_run.md)
+
+
 A synthetic mathematics system emerging from a single humble inquiry.
 
 Copilot Introduction
