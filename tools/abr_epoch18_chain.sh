@@ -43,7 +43,7 @@ echo
 echo "[3] Phi Stability"
 OUT=$(./abr --plugin phi_stability --window "$DENSITY_WINDOW")
 echo "$OUT"
-PHI_WINDOW=$(echo "$OUT" | awk '/window:/ {print $2})
+PHI_WINDOW=$(echo "$OUT" | awk '/window:/ {print $2}')
 echo "  → 𝓜₂.window = 𝓜₁.window (stability confirmation) = $PHI_WINDOW"
 echo
 
