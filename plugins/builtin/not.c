@@ -38,4 +38,20 @@ struct abr_plugin* abr_plugin_not(void)
     p->data    = NULL;
     return p;
 }
+#include "abr.h"
+
+abr_plugin* abr_plugin_not_factory(void)
+{
+    abr_plugin* p = (abr_plugin*)malloc(sizeof(abr_plugin));
+    if (!p)
+        return NULL;
+
+    p->name    = "not";
+    p->create  = NULL;
+    p->destroy = NULL;
+
+    p->execute = not_execute;   /* your existing execute function */
+
+    return p;
+}
 
