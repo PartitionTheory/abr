@@ -4,7 +4,11 @@ project(abr VERSION 0.5 LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-include_directories(include)
+include_directories(
+    include
+    core/operators
+    core/registry
+)
 
 set(ABR_CORE_SOURCES
     core/runtime/abr_runtime_context.c
