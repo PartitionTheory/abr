@@ -15,8 +15,10 @@
  *   d = degree domain (window width)
  *   r = residue domain (plugin result)
  */
-
+#include "abr.h"
+#include "abr_plugin.h"
 #include "abr_math_v4_common.h"
+
 #include <stdlib.h>
 
 /* Forward declaration of factory. */
