@@ -58,10 +58,12 @@ static uint64_t recursion_apply(
         abr_operator_chain_add_binary(&chain, op_xor, depth);
 
     /* Execute chain */
-    uint64_t out = abr_operator_chain_execute(&chain, ctx, window);
+    abr_plugin_result r = abr_math_v4_execute_chain(ctx, &chain);
+    uint64_t out = r.window;
 
     /* Recurse */
     return recursion_apply(ctx, out, depth - 1);
+
 }
 
 /* Create function. */
