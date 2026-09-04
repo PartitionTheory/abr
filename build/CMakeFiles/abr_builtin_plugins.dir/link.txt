@@ -1,2 +1,0 @@
-/usr/bin/ar qc libabr_builtin_plugins.a CMakeFiles/abr_builtin_plugins.dir/plugins/builtin/identity.c.o CMakeFiles/abr_builtin_plugins.dir/plugins/builtin/not.c.o
-/usr/bin/ranlib libabr_builtin_plugins.a

@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/abr_vm.dir/link.d CMakeFiles/abr_vm.dir/vm/abr_vm.c.o -o abr_vm  libabr_core.a libabr_builtin_plugins.a libabr_math_v4_plugins.a
