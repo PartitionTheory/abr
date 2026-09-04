@@ -13,7 +13,6 @@
 #include "abr_operators.h"
 #include "abr_plugin_registry.h"
 #include "abr_plugin_result.h"
-#include "abr_math_v4_common.h"
 
 /* Shared helper: execute an operator chain in the math_v4 context */
 abr_plugin_result abr_math_v4_execute_chain(abr_context* ctx,
