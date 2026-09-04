@@ -85,7 +85,12 @@ static abr_plugin_result recursion_execute(
 
     uint64_t out = recursion_apply(ctx, ctx->window, depth);
 
-    return abr_math_v4_result(ctx, out);
+    abr_plugin_result r;
+    r.window  = out;
+    r.residue = ctx->residue;   /* or 0 if you want a pure transform */
+
+return r;
+
 }
 
 /* Destroy function. */
