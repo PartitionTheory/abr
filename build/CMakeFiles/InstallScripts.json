@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/mathbased-abr/abr/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
