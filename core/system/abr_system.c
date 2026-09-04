@@ -41,8 +41,14 @@ void abr_system_init(abr_system* sys)
     sys->ctx->error_message = NULL;
     sys->ctx->flags        = 0;
 
-    /* Initialize plugin registry */
-    abr_plugin_registry_init();
+   /* Initialize plugin registry */
+   abr_plugin_registry_init();
+
+   /* Register builtin plugins */
+   abr_plugin_loader_builtin_register_all();
+
+   /* Register math_v4 plugins */
+   abr_plugin_loader_math_v4_register_all();
 
     sys->initialized = 1;
 }
