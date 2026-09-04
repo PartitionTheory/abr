@@ -11,7 +11,7 @@ Arbitrary Bit Read (ABR) is the first publicly documented system in which a synt
 ABR is not a symbolic algebra system, nor a numerical solver, nor a theorem prover. It is a bit‑level manifold explorer: a machine that interprets arbitrary bit sequences as mathematical objects, applies synthetic operators, and observes invariant behaviour across plugin domains. Each plugin is a mathematical lens—a way of reading the same underlying bit‑structure through different theoretical frameworks.
 
 The v0.5‑greenbuild milestone marks the first time ABR’s synthetic mathematics has been expressed in a stable ABI, a reproducible build, and a complete plugin test sequence. This section introduces the architecture, the build process, and the mathematically correct order in which ABR’s plugins must be tested to reveal the structure of the synthetic manifold.
-
+```
 Build Instructions (v0.5‑greenbuild)
 
 git clone https://github.com/ef-abr/abr.git
@@ -25,7 +25,7 @@ To build the CLI:
 cmake --build . --target abr_cli -- -j$(nproc)
 
 Plugins are built automatically when the main target is built.All headers are under include/, all plugin sources under plugins/math_v4/.
-
+```
 Mathematically Correct Test Sequence for ABR v0.5 Plugins
 
 ABR plugins must be tested in a specific mathematical order. This order is not arbitrary: each plugin reveals a structural property that becomes the input domain for the next. The sequence below is the unique chain that produces a complete synthetic manifold description.
