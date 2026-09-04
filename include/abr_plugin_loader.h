@@ -19,7 +19,7 @@
 #define ABR_PLUGIN_LOADER_H
 
 #include "abr_plugin.h"
-
+#include <string.h>
 /* Built-in plugin table (v0.5 static). */
 extern const abr_plugin* abr_builtin_plugins[];
 extern const size_t abr_builtin_plugin_count;
