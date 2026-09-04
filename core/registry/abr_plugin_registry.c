@@ -17,8 +17,9 @@
  *   r = residue domain (registry state)
  */
 
+#include "abr.h"              /* full abr_plugin definition */
 #include "abr_plugin_registry.h"
-#include <stdlib.h>
+#include "abr_plugin_loader.h"
 #include <string.h>
 
 /* Maximum number of plugins supported in v0.5 */
