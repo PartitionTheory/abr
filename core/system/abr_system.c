@@ -21,6 +21,8 @@
 #include "abr_system.h"
 #include "abr_runtime_context.h"
 #include "abr_plugin_loader.h"
+#include "abr_plugin_loader_builtin.h"      /* ADD THIS */
+#include "abr_plugin_loader_math_v4.h"      /* ADD THIS */
 #include "abr_plugin_registry.h"
 #include "abr_runtime_execute.h"
 #include "abr_runtime_pipeline.h"
