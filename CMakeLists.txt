@@ -48,6 +48,7 @@ set(ABR_MATH_V4_PLUGINS
 
 set(ABR_CLI_SOURCES
     cli/abr_cli.c
+    cli/main.c
 )
 
 set(ABR_VM_SOURCES
