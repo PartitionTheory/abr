@@ -40,6 +40,7 @@ set(ABR_MATH_V4_PLUGINS
     plugins/math_v4/phi_stability.c
     plugins/math_v4/domain_seed.c
     plugins/math_v4/operator_chain.c
+    plugins/math_v4/abr_math_v4_execute_chain.c
 )
 
 set(ABR_CLI_SOURCES
