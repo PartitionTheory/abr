@@ -19,6 +19,9 @@
 #include "abr_plugin_loader_builtin.h"
 #include "abr_plugins_builtin.h"
 #include "abr_plugin_registry.h"
+/* Forward declarations for builtin plugin factories */
+abr_plugin* abr_plugin_identity_factory(void);
+abr_plugin* abr_plugin_not_factory(void);
 
 void abr_plugin_loader_builtin_register_all(void)
 {
