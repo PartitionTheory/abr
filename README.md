@@ -3,7 +3,8 @@ Arbitrary Bit Read — v0.5‑greenbuild
 Aug 14 → Sep 2026
 
 See tests/abr_math_v4_sequence.md for the full synthetic manifold test sequence (DomainSeed → Dynamics).
-[ABR math_v4 synthetic sequence tests](tests/abr_math_v4_sequence.md)
+
+### ➜  [ABR math_v4 synthetic sequence tests](tests/abr_math_v4_sequence.md)
 
 A synthetic mathematics system emerging from a single humble inquiry.
 
