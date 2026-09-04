@@ -8,6 +8,7 @@ include_directories(
     include
     core/operators
     core/registry
+    core/runtime
 )
 
 set(ABR_CORE_SOURCES
