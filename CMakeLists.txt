@@ -62,7 +62,6 @@ add_library(abr_core STATIC ${ABR_CORE_SOURCES})
 target_link_libraries(abr_core
     PRIVATE
         abr_builtin_plugins
-        abr_math_v4_plugins
 )
 
 add_executable(abr ${ABR_CLI_SOURCES})
