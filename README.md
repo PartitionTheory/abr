@@ -20,10 +20,6 @@ mkdir build && cd build
 cmake ..
 cmake --build . --target abr -- -j$(nproc)
 
-To build the CLI:
-
-cmake --build . --target abr_cli -- -j$(nproc)
-
 Plugins are built automatically when the main target is built.All headers are under include/, all plugin sources under plugins/math_v4/.
 ```
 Mathematically Correct Test Sequence for ABR v0.5 Plugins
