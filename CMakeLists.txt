@@ -65,7 +65,12 @@ target_link_libraries(abr_core
 )
 
 add_executable(abr ${ABR_CLI_SOURCES})
-target_link_libraries(abr PRIVATE abr_core abr_math_v4_plugins)
+target_link_libraries(abr PRIVATE
+    -Wl,--start-group
+        abr_core
+        abr_math_v4_plugins
+    -Wl,--end-group
+)
 
 add_executable(abr_vm ${ABR_VM_SOURCES})
 target_link_libraries(abr_vm PRIVATE abr_core)
