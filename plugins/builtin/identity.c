@@ -38,7 +38,6 @@ struct abr_plugin* abr_plugin_identity(void)
     p->data    = NULL;
     return p;
 }
-#include "abr.h"
 
 abr_plugin* abr_plugin_identity_factory(void)
 {

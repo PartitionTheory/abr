@@ -38,7 +38,6 @@ struct abr_plugin* abr_plugin_not(void)
     p->data    = NULL;
     return p;
 }
-#include "abr.h"
 
 abr_plugin* abr_plugin_not_factory(void)
 {
