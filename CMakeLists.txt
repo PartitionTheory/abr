@@ -11,6 +11,7 @@ include_directories(
     core/runtime
     core/system
     core/dispatch
+    core/loader
 )
 
 set(ABR_CORE_SOURCES
