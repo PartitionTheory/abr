@@ -44,7 +44,7 @@ This output is the **input domain** for Density Index.
 
 ## **CLI Test**
 ```
-./abr --plugin domain_seed --input 11001010011100010111
+./abr --plugin domain_seed --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
@@ -99,7 +99,7 @@ Example (illustrative only):
 
 ## **CLI Test**
 ```
-./abr --plugin density_index --input 11001010011100010111
+./abr --plugin density_index --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
@@ -155,7 +155,7 @@ Interpretation:
 
 ## **CLI Test**
 ```
-./abr --plugin phi_stability --input 11001010011100010111
+./abr --plugin phi_stability --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
@@ -218,7 +218,7 @@ I = {
 
 ## **CLI Test**
 ```
-./abr --plugin invariant_explorer --input 11001010011100010111
+./abr --plugin invariant_explorer --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
@@ -284,7 +284,7 @@ The number of iterations $k$ is determined by:
 
 ## **CLI Test**
 ```
-./abr --plugin recursion_engine --input 11001010011100010111
+./abr --plugin recursion_engine --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
@@ -348,7 +348,7 @@ The output reflects the combined effect of all operators in the chain.
 
 ## **CLI Test**
 ```
-./abr --plugin operator_chain --input 11001010011100010111
+./abr --plugin operator_chain --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
@@ -423,7 +423,7 @@ The output may converge, oscillate, or stabilize depending on $exp(\Phi)$ and $e
 
 ## **CLI Test**
 ```
-./abr --plugin manifold_dynamics --input 11001010011100010111
+./abr --plugin manifold_dynamics --window 11001010011100010111
 ```
 
 ## **Correctness Criteria**
