@@ -19,6 +19,15 @@
 #include "abr_plugin_loader_math_v4.h"
 #include "abr_math_v4_plugins.h"
 #include "abr_plugin_registry.h"
+/* Forward declarations for all math_v4 plugin factories */
+abr_plugin* abr_plugin_manifold_dynamics_factory(void);
+abr_plugin* abr_plugin_invariant_explorer_factory(void);
+abr_plugin* abr_plugin_recursion_engine_factory(void);
+abr_plugin* abr_plugin_density_index_factory(void);
+abr_plugin* abr_plugin_phi_stability_factory(void);
+abr_plugin* abr_plugin_domain_seed_factory(void);
+abr_plugin* abr_plugin_operator_chain_factory(void);
+abr_plugin* abr_plugin_manifold_dynamics_extension_factory(void);
 
 void abr_plugin_loader_math_v4_register_all(void)
 {
