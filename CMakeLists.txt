@@ -48,7 +48,6 @@ set(ABR_MATH_V4_PLUGINS
 
 set(ABR_CLI_SOURCES
     cli/abr_cli.c
-    cli/main.c
 )
 
 set(ABR_VM_SOURCES
@@ -65,6 +64,11 @@ target_link_libraries(abr_core
 )
 
 add_executable(abr ${ABR_CLI_SOURCES})
+
+target_include_directories(abr PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+)
+
 target_link_libraries(abr PRIVATE
     -Wl,--start-group
         abr_core
