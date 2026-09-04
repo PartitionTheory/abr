@@ -6,17 +6,16 @@
 
 #ifndef ABR_MATH_V4_COMMON_H
 #define ABR_MATH_V4_COMMON_H
+
 #include "abr.h"
 #include "abr_plugin.h"
-#include "abr_math_v4_common.h"
-
 #include <stdint.h>
 
 /* Shared structure for math_v4 plugin internal state */
-struct abr_math_v4_state {
+typedef struct abr_math_v4_state {
     uint64_t seed;
     uint64_t depth;
-};
+} abr_math_v4_state;
 
 /* Utility: clamp a value to a range */
 static inline uint64_t abr_math_v4_clamp(uint64_t x, uint64_t lo, uint64_t hi)
