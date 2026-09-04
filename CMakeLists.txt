@@ -9,6 +9,8 @@ include_directories(
     core/operators
     core/registry
     core/runtime
+    core/system
+    core/dispatch
 )
 
 set(ABR_CORE_SOURCES
