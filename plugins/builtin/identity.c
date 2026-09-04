@@ -38,4 +38,20 @@ struct abr_plugin* abr_plugin_identity(void)
     p->data    = NULL;
     return p;
 }
+#include "abr.h"
+
+abr_plugin* abr_plugin_identity_factory(void)
+{
+    abr_plugin* p = (abr_plugin*)malloc(sizeof(abr_plugin));
+    if (!p)
+        return NULL;
+
+    p->name    = "identity";
+    p->create  = NULL;   /* no internal state */
+    p->destroy = NULL;   /* no internal state */
+
+    p->execute = identity_execute;   /* your existing execute function */
+
+    return p;
+}
 
