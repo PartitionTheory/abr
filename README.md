@@ -21,7 +21,7 @@ The v0.5‑greenbuild milestone marks the first time ABR’s synthetic mathemati
 ```
 Build Instructions (v0.5‑greenbuild)
 
-git clone https://github.com/ef-abr/abr.git
+git git@github.com:PartitionTheory/abr.git
 cd abr
 mkdir build && cd build
 cmake ..
