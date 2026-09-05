@@ -26,6 +26,9 @@ cd abr
 mkdir build && cd build
 cmake ..
 cmake --build . --target abr -- -j$(nproc)
+cp ../tools/abr_epoch18_chain.sh ./
+
+then: ./abr_epoch18_chain.sh 101001110010111000101011
 
 Plugins are built automatically when the main target is built.All headers are under include/, all plugin sources under plugins/math_v4/.
 ```
